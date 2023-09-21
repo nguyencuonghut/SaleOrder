@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\HomeComponent;
+use App\Livewire\RolesIndex;
+use App\Livewire\UsersIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 //Employee route
-
 Route::group(['middleware'=>'auth:web'], function() {
-    Route::get('/', [HomeController::class, 'home'])->name('home');
+    Route::get('/', HomeComponent::class)->name('home');
+    Route::get('roles', RolesIndex::class)->name('roles.index');
+    Route::get('users', UsersIndex::class)->name('users.index');
 });

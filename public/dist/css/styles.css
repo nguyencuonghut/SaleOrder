@@ -1,0 +1,75 @@
+
+.wrap-pagination-info{
+    margin-top: 46px;
+    border-top: 1px solid #e6e6e6;
+}
+.wrap-pagination-info .page-numbers{
+    padding: 0;
+    margin: 0;
+    margin-top: 17px;
+}
+.wrap-pagination-info .page-numbers li{
+    display: block;
+    list-style: none;
+    float: left;
+}
+.wrap-pagination-info .page-numbers li:not(:last-child){
+    margin-right: 10px;
+}
+.wrap-pagination-info .page-numbers li .page-number-item.current{
+    display: inline-block;
+    color: red;
+    font-size: 14px;
+    line-height: 35px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 35px;
+    padding: 0 5px;
+    height: 35px;
+}
+.wrap-pagination-info .page-numbers li .page-number-item.next-link{
+    min-width: 77px !important;
+}
+.wrap-pagination-info .page-numbers li .page-number-item:not(.current){
+    display: inline-block;
+    color: white;
+    font-size: 14px;
+    line-height: 34px;
+    background-color: #f96332;
+    text-align: center;
+    min-width: 35px;
+    padding: 0 5px;
+    height: 35px;
+    border-color: #e6e6e6;
+}
+.wrap-pagination-info .page-numbers li .page-number-item{
+    border: 1px solid;
+    border-radius: 10% !important;
+}
+.wrap-pagination-info .page-numbers li .page-number-item:hover{
+    color: #660066;
+}
+.wrap-pagination-info .result-count{
+    display: inline-block;
+    font-size: 13px;
+    line-height: 35px;
+    color: #333333;
+    float: none;
+    margin: 0;
+    margin-top: -2px;
+}
+.col-6 label span{
+    color: #ff2832;
+}
+.form-group label span{
+    color: #ff2832;
+}
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
