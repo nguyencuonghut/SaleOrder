@@ -39,23 +39,23 @@
               <div class="card-header">
                 <h3 class="card-title">Tất cả người dùng</h3>
 
-                <div class="card-tools" style="margin: 5px;">
+                <div class="card-tools">
                   <div class="input-group input-group-sm">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search" wire:model="search">
-
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-success"><i class="fas fa-plus"></i></a>
-                    </div>
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search" wire:model.live="search">
                   </div>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
+                <button style="margin: 10px;" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
                       <th>Id</th>
                       <th>Tên</th>
+                      <th>Email</th>
+                      <th>Vai trò</th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
@@ -63,16 +63,22 @@
                     @foreach ($users as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td><a href="">{{$item->name}}</a></td>
+                            <td><a href="#">{{$item->name}}</a></td>
+                            <td>{{$item->email}}</td>
+                            <td>{{$item->role->name}}</td>
                             <td>
-                                <a href="#"><i class="fa fa-eye"></i></a>
-                                <a href="#"><i class="fa fa-edit"></i></a>
-                                <a href="#" wire:click.prevent=""><i class="fa fa-trash"></i></a>
+                                <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-eye"></i></button>
+                                <button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach
                   </tbody>
                 </table>
+                @if (count($users))
+                    <p style="margin: 10px;">Showing {{$users->count()}} of {{$users->total()}} entries</p>
+                    {{ $users->links('livewire.pagination-links') }}
+                @endif
               </div>
               <!-- /.card-body -->
             </div>
