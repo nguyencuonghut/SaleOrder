@@ -35,6 +35,7 @@
                 {{ Session::get('error_message') }}
               </div>
             @endif
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Tất cả người dùng</h3>
@@ -47,8 +48,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <button style="margin: 10px;" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
-
+                <button style="margin: 10px;" type="button" wire:click.prevent="addNew" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
@@ -93,4 +93,20 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  @include('livewire.user-create')
 </div>
+
+@push('scripts')
+
+<script>
+    $(document).ready(function () {
+        window.addEventListener('hide-form', function (event) {
+            $('#form').modal('hide');
+        });
+        });
+        window.addEventListener('show-form', function (event) {
+            $('#form').modal('show');
+        });
+</script>
+@endpush

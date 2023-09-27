@@ -138,6 +138,13 @@
 
 @livewireScripts()
 
+<style type="text/css">
+    .required-field::after {
+        content: " *";
+        color: red;
+    }
+</style>
+
 @stack('scripts')
 </body>
 </html>
