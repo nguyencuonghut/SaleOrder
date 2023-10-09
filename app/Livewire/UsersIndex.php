@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +20,11 @@ class UsersIndex extends Component
     public $role_id;
     public $password;
     public $password_confirmation;
+    public $editUserIndex;
+    public $editUserName;
+    public $editUserEmail;
+    public $editUserRoleId;
+    public $deletedUserIndex;
 
     private function resetInput()
     {
@@ -28,6 +34,11 @@ class UsersIndex extends Component
         $this->role_id = '';
         $this->password = '';
         $this->password_confirmation = '';
+        $this->editUserIndex = null;
+        $this->editUserName = null;
+        $this->editUserEmail = null;
+        $this->editUserRoleId = null;
+        $this->deletedUserIndex = null;
     }
 
     public function mount()
@@ -74,6 +85,66 @@ class UsersIndex extends Component
         $this->dispatch('hide-form');
 
         Session::flash('success_message', 'Người dùng mới được tạo thành công!');
+    }
+
+    public function edit($editUserId)
+    {
+        $user = User::findOrFail($editUserId);
+        $this->editUserIndex = $user->id;
+        $this->editUserName = $user->name;
+        $this->email = $user->email;
+        $this->editUserRoleId = $user->role_id;
+    }
+
+    public function save()
+    {
+        //Validate
+        $rules = [
+            'editUserName'  => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->editUserIndex),
+            ]
+        ];
+        $messages = [
+            'editUserName.required' => 'Bạn phải nhập tên.',
+            'email.required' => 'Bạn phải nhập email.',
+            'email.email' => 'Email sai định dạng.',
+            'email.unique' => 'Email đã tồn tại. Bạn vui lòng chọn email khác.',
+        ];
+
+        $this->validate($rules, $messages);
+        $user = User::findOrFail($this->editUserIndex);
+        $user->name = $this->editUserName;
+        $user->email = $this->email;
+        $user->role_id = $this->editUserRoleId;
+        $user->save();
+
+        $this->reset('editUserIndex', 'editUserName', 'editUserEmail', 'editUserRoleId');
+        Session::flash('success_message', 'Cập nhật thành công!');
+    }
+
+
+    public function cancel()
+    {
+        $this->reset('editUserIndex', 'editUserName', 'email', 'deletedUserIndex');
+        $this->resetErrorBag();
+    }
+
+    public function confirmDestroy($id)
+    {
+        $this->deletedUserIndex = $id;
+    }
+
+    public function destroy()
+    {
+        // Destroy user
+        $user = User::findOrFail($this->deletedUserIndex);
+        $user->destroy($this->deletedUserIndex);
+
+        $this->reset('deletedUserIndex');
+        Session::flash('success_message', 'Xóa thành công!');
     }
 
     public function render()

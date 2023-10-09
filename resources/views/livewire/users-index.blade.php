@@ -60,16 +60,68 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($users as $item)
+                    @foreach ($users as $user)
                         <tr>
-                            <td>{{$item->id}}</td>
-                            <td><a href="#">{{$item->name}}</a></td>
-                            <td>{{$item->email}}</td>
-                            <td>{{$item->role->name}}</td>
+                            <td>{{$user->id}}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-eye"></i></button>
-                                <button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @if ($editUserIndex === $user->id)
+                                    <input type="text" class="form-control" wire:model.defer="editUserName">
+                                    @error('editUserName') <span style="color:red;">{{ $message }}</span>@enderror
+                                @else
+                                    <a href="">{{$user->name}}</a>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editUserIndex === $user->id)
+                                    <input type="text" class="form-control" wire:model.defer="email">
+                                    @error('email') <span style="color:red;">{{ $message }}</span>@enderror
+                                @else
+                                    <a href="">{{$user->email}}</a>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editUserIndex === $user->id)
+                                    {{-- <div wire:key="UNIQUE_KEY">
+                                        <div wire:ignore>
+                                            <div class="controls">
+                                                <select style="width:100%;" name="editUserRoleId" id="editUserRoleId" class="form-control select2" wire.model.defer="editUserRoleId">
+                                                    @foreach($roles as $role)
+                                                        <option
+                                                            @if ($editUserRoleId === $role->id)
+                                                                selected = "selected"
+                                                            @endif
+                                                            value="{{$role->id}}">{{$role->name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @error('role_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div> --}}
+                                    <select style="width:100%;" class="form-control" wire:model="editUserRoleId">
+                                        @foreach($roles as $role)
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    {{$user->role->name}}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editUserIndex === $user->id)
+                                    <button type="button" wire:click.prevent="save" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
+                                @elseif ($deletedUserIndex === $user->id)
+                                    <button type="button" wire:click.prevent="destroy" class="btn btn-outline-success btn-sm"><i class="fa fa-check-square"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
+                                @else
+                                    <button type="button" wire:click.prevent="edit({{$user->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                    <button type="button" wire:click.prevent="confirmDestroy({{$user->id}})" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
