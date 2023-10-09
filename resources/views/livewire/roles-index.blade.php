@@ -1,5 +1,5 @@
 @section('title')
-    Phòng Ban
+    Vai trò
 @endsection
 
 <div>
@@ -39,29 +39,27 @@
               <div class="card-header">
                 <h3 class="card-title">Tất cả vai trò</h3>
 
-                <div class="card-tools" style="margin: 5px;">
-                  <div class="input-group input-group-sm">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search" wire:model="search">
-
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                <div class="card-tools">
+                    <div class="input-group input-group-sm">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search" wire:model.live="search">
                     </div>
                   </div>
-                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
+                <button style="margin: 10px;" type="button" wire:click.prevent="#" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th><a wire:click.prevent="sortBy('id')" role="button" href="#" style="color:#212529">ID</a>
+                      <th wire:click.prevent="sortBy('id')"><a role="button" href="#" style="color:#212529">ID</a>
                         @if($sortField == 'id')
                           <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'id' ? '' : 'color:#cccccc'}} "></i>
                         @else
                           <i class="fa fa-sort" style="color:#cccccc"></i>
                         @endif
                       </th>
-                      <th><a wire:click.prevent="sortBy('name')" role="button" href="#" style="color:#212529">Tên</a>
+                      <th wire:click.prevent="sortBy('name')" ><a role="button" href="#" style="color:#212529">Tên</a>
                         @if($sortField == 'name')
                           <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'name' ? '' : 'color:#cccccc'}} "></i>
                         @else
@@ -71,15 +69,29 @@
                       <th>Thao tác</th>
                     </tr>
                   </thead>
+
                   <tbody>
-                    @foreach ($roles as $item)
+                    <?php $sl = 0; ?>
+                    @foreach ($roles as $role)
                         <tr>
-                            <td>{{$item->id}}</td>
-                            <td><a href="">{{$item->name}}</a></td>
+                            <td>{{++$sl}}</td>
                             <td>
-                                <a href="#"><i class="fa fa-eye"></i></a>
-                                <a href="#"><i class="fa fa-edit"></i></a>
-                                <a href="#" wire:click.prevent=""><i class="fa fa-trash"></i></a>
+                                @if ($editRoleIndex === $role->id)
+                                    <input type="text" class="form-control" wire:model.defer="name">
+                                    @error('name') <span style="color:red;">{{ $message }}</span>@enderror
+
+                                @else
+                                    <a href="">{{$role->name}}</a>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editRoleIndex === $role->id)
+                                    <button type="button" wire:click.prevent="save" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-warning btn-sm"><i class="fa fa-times-circle"></i></button>
+                                @else
+                                    <button type="button" wire:click.prevent="edit({{$role->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
