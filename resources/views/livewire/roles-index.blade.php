@@ -86,10 +86,13 @@
                             <td>
                                 @if ($editRoleIndex === $role->id)
                                     <button type="button" wire:click.prevent="save" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
-                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-warning btn-sm"><i class="fa fa-times-circle"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
+                                @elseif ($deletedRoleIndex === $role->id)
+                                    <button type="button" wire:click.prevent="destroy" class="btn btn-outline-success btn-sm"><i class="fa fa-check-square"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
                                 @else
                                     <button type="button" wire:click.prevent="edit({{$role->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                    <button type="button" wire:click.prevent="confirmDestroy({{$role->id}})" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
                                 @endif
                             </td>
                         </tr>

@@ -19,10 +19,11 @@ class RolesCreate extends Component
     {
         //Validate
         $rules = [
-            'name'  => 'required',
+            'name'  => 'required|unique:roles',
         ];
         $messages = [
             'name.required' => 'Bạn phải nhập tên.',
+            'name.unique' => 'Tên bạn nhập đã tồn tại. Vui lòng chọn tên khác.',
         ];
 
         $this->validate($rules, $messages);

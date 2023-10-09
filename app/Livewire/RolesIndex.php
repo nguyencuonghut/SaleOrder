@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Role;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class RolesIndex extends Component
@@ -12,6 +13,7 @@ class RolesIndex extends Component
     public $sortField;
     public $sortAsc;
     public $editRoleIndex;
+    public $deletedRoleIndex;
     public $name;
 
     public function mount()
@@ -20,6 +22,7 @@ class RolesIndex extends Component
         $this->sortField = 'id';
         $this->sortAsc = false;
         $this->editRoleIndex = null;
+        $this->deletedRoleIndex = null;
         $this->name = '';
     }
 
@@ -46,10 +49,14 @@ class RolesIndex extends Component
     {
         //Validate
         $rules = [
-            'name'  => 'required',
+            'name'  => [
+                'required',
+                Rule::unique('roles')->ignore($this->editRoleIndex),
+                ]
         ];
         $messages = [
             'name.required' => 'Bạn phải nhập tên.',
+            'name.unique' => 'Tên đã tồn tại. Bạn vui lòng chọn tên khác.',
         ];
 
         $this->validate($rules, $messages);
@@ -64,8 +71,23 @@ class RolesIndex extends Component
 
     public function cancel()
     {
-        $this->reset('editRoleIndex', 'name');
+        $this->reset('editRoleIndex', 'name', 'deletedRoleIndex');
         $this->resetErrorBag();
+    }
+
+    public function confirmDestroy($id)
+    {
+        $this->deletedRoleIndex = $id;
+    }
+
+    public function destroy()
+    {
+        // Destroy role
+        $role = Role::findOrFail($this->deletedRoleIndex);
+        $role->destroy($this->deletedRoleIndex);
+
+        $this->reset('deletedRoleIndex');
+        Session::flash('success_message', 'Xóa thành công!');
     }
 
     public function render()
