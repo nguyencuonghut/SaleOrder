@@ -47,8 +47,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <button style="margin: 10px;" type="button" wire:click.prevent="#" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
-
+                <a style="margin: 10px;" href="{{route('roles.create')}}" wire:navigate><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></a>
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
