@@ -80,7 +80,7 @@
                                     @error('name') <span style="color:red;">{{ $message }}</span>@enderror
 
                                 @else
-                                    <a href="">{{$package->name}}</a>
+                                    {{$package->name}}
                                 @endif
                             </td>
                             <td>

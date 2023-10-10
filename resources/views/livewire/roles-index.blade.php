@@ -11,7 +11,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="/" wire:navigate>Trang chủ</a></li>
               <li class="breadcrumb-item active">Vai trò</li>
             </ol>
           </div>
@@ -80,7 +80,7 @@
                                     @error('name') <span style="color:red;">{{ $message }}</span>@enderror
 
                                 @else
-                                    <a href="">{{$role->name}}</a>
+                                    {{$role->name}}
                                 @endif
                             </td>
                             <td>

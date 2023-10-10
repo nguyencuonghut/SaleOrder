@@ -11,7 +11,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="/" wire:navigate>Trang chủ</a></li>
               <li class="breadcrumb-item active">Người dùng</li>
             </ol>
           </div>
@@ -68,7 +68,7 @@
                                     <input type="text" class="form-control" wire:model.defer="editUserName">
                                     @error('editUserName') <span style="color:red;">{{ $message }}</span>@enderror
                                 @else
-                                    <a href="">{{$user->name}}</a>
+                                    {{$user->name}}
                                 @endif
                             </td>
                             <td>
@@ -76,32 +76,11 @@
                                     <input type="text" class="form-control" wire:model.defer="email">
                                     @error('email') <span style="color:red;">{{ $message }}</span>@enderror
                                 @else
-                                    <a href="">{{$user->email}}</a>
+                                    {{$user->email}}
                                 @endif
                             </td>
                             <td>
                                 @if ($editUserIndex === $user->id)
-                                    {{-- <div wire:key="UNIQUE_KEY">
-                                        <div wire:ignore>
-                                            <div class="controls">
-                                                <select style="width:100%;" name="editUserRoleId" id="editUserRoleId" class="form-control select2" wire.model.defer="editUserRoleId">
-                                                    @foreach($roles as $role)
-                                                        <option
-                                                            @if ($editUserRoleId === $role->id)
-                                                                selected = "selected"
-                                                            @endif
-                                                            value="{{$role->id}}">{{$role->name}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            @error('role_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
                                     <select style="width:100%;" class="form-control" wire:model="editUserRoleId">
                                         @foreach($roles as $role)
                                             <option value="{{$role->id}}">{{$role->name}}</option>

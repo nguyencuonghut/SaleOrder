@@ -1,5 +1,5 @@
 @section('title')
-    Thêm vai trò
+    Thêm đóng gói
 @endsection
 
 <div>
