@@ -90,6 +90,30 @@
            @if(Auth::check() && Auth::user()->role->name == 'Admin')
            <li class="nav-header">HỆ THỐNG</li>
            <li class="nav-item">
+             <a href="{{ route('packages.index') }}" wire:navigate class="nav-link {{ Request::is('packages') ? 'active' : '' }}">
+               <i class="nav-icon fas fa-box-open"></i>
+               <p>
+                 Đóng gói
+               </p>
+             </a>
+           </li>
+           <li class="nav-item">
+             <a href="{{ route('categories.index') }}" wire:navigate class="nav-link {{ Request::is('categories') ? 'active' : '' }}">
+               <i class="nav-icon fas fa-tags"></i>
+               <p>
+                 Phân loại
+               </p>
+             </a>
+           </li>
+           <li class="nav-item">
+             <a href="{{ route('groups.index') }}" wire:navigate class="nav-link {{ Request::is('groups') ? 'active' : '' }}">
+               <i class="nav-icon fas fa-stream"></i>
+               <p>
+                 Nhóm SP
+               </p>
+             </a>
+           </li>
+           <li class="nav-item">
              <a href="{{ route('roles.index') }}" wire:navigate class="nav-link {{ Request::is('roles') ? 'active' : '' }}">
                <i class="nav-icon fas fa-book"></i>
                <p>

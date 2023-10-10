@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Livewire\CategoriesIndex;
+use App\Livewire\GroupsIndex;
 use App\Livewire\HomeComponent;
+use App\Livewire\PackagesIndex;
 use App\Livewire\RolesIndex;
 use App\Livewire\RolesCreate;
 use App\Livewire\UsersIndex;
@@ -32,4 +35,10 @@ Route::group(['middleware'=>'auth:web'], function() {
     Route::get('roles/create', RolesCreate::class)->name('roles.create');
 
     Route::get('users', UsersIndex::class)->name('users.index');
+
+    Route::get('packages', PackagesIndex::class)->name('packages.index');
+
+    Route::get('groups', GroupsIndex::class)->name('groups.index');
+
+    Route::get('categories', CategoriesIndex::class)->name('categories.index');
 });
