@@ -90,6 +90,14 @@
            @if(Auth::check() && Auth::user()->role->name == 'Admin')
            <li class="nav-header">HỆ THỐNG</li>
            <li class="nav-item">
+             <a href="{{ route('products.index') }}" wire:navigate class="nav-link {{ Request::is('products') ? 'active' : '' }}">
+               <i class="nav-icon fas fa-th-list"></i>
+               <p>
+                 Sản phẩm
+               </p>
+             </a>
+           </li>
+           <li class="nav-item">
              <a href="{{ route('packages.index') }}" wire:navigate class="nav-link {{ Request::is('packages') ? 'active' : '' }}">
                <i class="nav-icon fas fa-box-open"></i>
                <p>

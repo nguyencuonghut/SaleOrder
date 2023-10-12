@@ -26,7 +26,7 @@ class CategoriesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'KAC và cám T',
+                    'name' => 'Hàng đặt riêng',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),
@@ -40,13 +40,6 @@ class CategoriesTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Hàng đặt riêng',
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ),
-            4 =>
-                array (
-                    'id' => 5,
                     'name' => 'Hàng Silo',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),

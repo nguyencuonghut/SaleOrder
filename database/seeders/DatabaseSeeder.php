@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             GroupsTableSeeder::class,
             PackagesTableSeeder::class,
+            ProductsTableSeeder::class,
         ]);
     }
 }

@@ -8,6 +8,8 @@ use App\Livewire\GroupsIndex;
 use App\Livewire\HomeComponent;
 use App\Livewire\PackagesCreate;
 use App\Livewire\PackagesIndex;
+use App\Livewire\ProductsCreate;
+use App\Livewire\ProductsIndex;
 use App\Livewire\RolesIndex;
 use App\Livewire\RolesCreate;
 use App\Livewire\UsersIndex;
@@ -47,4 +49,7 @@ Route::group(['middleware'=>'auth:web'], function() {
 
     Route::get('categories', CategoriesIndex::class)->name('categories.index');
     Route::get('categories/create', CategoriesCreate::class)->name('categories.create');
+
+    Route::get('products', ProductsIndex::class)->name('products.index');
+    Route::get('products/create', ProductsCreate::class)->name('products.create');
 });
