@@ -69,7 +69,7 @@ class CategoriesIndex extends Component
         $category->description = $this->description;
         $category->save();
 
-        $this->reset('editCategoryIndex', 'name');
+        $this->reset('editCategoryIndex', 'name', 'description');
         Session::flash('success_message', 'Cập nhật thành công!');
     }
 
