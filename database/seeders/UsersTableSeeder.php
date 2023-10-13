@@ -34,11 +34,11 @@ class UsersTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'Đỗ Minh Cảnh',
-                    'email' => 'dominhcanh@honghafeed.com.vn',
+                    'name' => 'Nhân viên Kinh Doanh',
+                    'email' => 'nvkd@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
-                    'role_id' => 1,
+                    'role_id' => 2,
                     'email_verified_at' => null,
                     'remember_token' => null,
                     'created_at' => Carbon::now(),
@@ -47,8 +47,8 @@ class UsersTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Đỗ Minh Đông',
-                    'email' => 'dominhdong@honghafeed.com.vn',
+                    'name' => 'Trưởng vùng',
+                    'email' => 'truongvung@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
                     'role_id' => 2,
@@ -60,8 +60,8 @@ class UsersTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Ngụy Văn Duyên',
-                    'email' => 'nguyvanduyen@honghafeed.com.vn',
+                    'name' => 'Giám đốc vùng',
+                    'email' => 'gdv@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
                     'role_id' => 2,
@@ -70,21 +70,6 @@ class UsersTableSeeder extends Seeder
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),
-            4 =>
-                array (
-                    'id' => 5,
-                    'name' => 'Lưu Văn Tuấn',
-                    'email' => 'luuvantuan@honghafeed.com.vn',
-                    'password' => bcrypt('Hongha@123'),
-                    'is_disable' => 0,
-                    'role_id' => 3,
-                    'email_verified_at' => null,
-                    'remember_token' => null,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ),
         ));
-
-        User::factory(99)->create();
     }
 }

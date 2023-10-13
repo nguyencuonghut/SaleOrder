@@ -3,7 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Schedule;
+use App\Models\User;
+use App\Notifications\ScheduleCreated;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -45,6 +48,12 @@ class SchedulesCreate extends Component
         $schedule->start_time = Carbon::createFromFormat('d/m/Y', $this->start_time);
         $schedule->end_time = Carbon::createFromFormat('d/m/Y', $this->end_time);
         $schedule->save();
+
+        //Send email notification
+        $users = User::all();
+        foreach($users as $user){
+            Notification::route('mail' , $user->email)->notify(new ScheduleCreated($schedule->id));
+        }
 
         $this->reset(['title', 'period', 'start_time', 'end_time']);
         Session::flash('success_message', 'Tạo mới thành công!');
