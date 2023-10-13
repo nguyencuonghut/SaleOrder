@@ -12,6 +12,9 @@ use App\Livewire\ProductsCreate;
 use App\Livewire\ProductsIndex;
 use App\Livewire\RolesIndex;
 use App\Livewire\RolesCreate;
+use App\Livewire\SchedulesCreate;
+use App\Livewire\SchedulesEdit;
+use App\Livewire\SchedulesIndex;
 use App\Livewire\UsersIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +55,8 @@ Route::group(['middleware'=>'auth:web'], function() {
 
     Route::get('products', ProductsIndex::class)->name('products.index');
     Route::get('products/create', ProductsCreate::class)->name('products.create');
+
+    Route::get('schedules', SchedulesIndex::class)->name('schedules.index');
+    Route::get('schedules/create', SchedulesCreate::class)->name('schedules.create');
+    Route::get('schedules/edit/{id}', SchedulesEdit::class)->name('schedules.edit');
 });

@@ -7,7 +7,6 @@ use App\Models\Group;
 use App\Models\Package;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             GroupsTableSeeder::class,
             PackagesTableSeeder::class,
             ProductsTableSeeder::class,
+            SchedulesTableSeeder::class,
         ]);
     }
 }

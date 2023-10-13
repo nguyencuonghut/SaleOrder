@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+  <!-- PikaDay -->
+  <link rel="stylesheet" href="{{asset('plugins/pikaday/pikaday.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
   <!-- Custome style -->
@@ -93,10 +95,18 @@
              <a href="{{ route('products.index') }}" wire:navigate class="nav-link {{ Request::is('products') ? 'active' : '' }}">
                <i class="nav-icon fas fa-th-list"></i>
                <p>
-                 Sản phẩm
+                Sản phẩm
                </p>
              </a>
            </li>
+           <li class="nav-item">
+            <a href="{{ route('schedules.index') }}" wire:navigate class="nav-link {{ Request::is('schedules*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Kỳ đặt hàng
+              </p>
+            </a>
+          </li>
            <li class="nav-item">
              <a href="{{ route('packages.index') }}" wire:navigate class="nav-link {{ Request::is('packages') ? 'active' : '' }}">
                <i class="nav-icon fas fa-box-open"></i>
@@ -164,6 +174,10 @@
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Moment JS -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<!-- PikaDay -->
+<script src="{{asset('plugins/pikaday/pikaday.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <!-- Page specific script -->
