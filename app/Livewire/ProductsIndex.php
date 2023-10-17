@@ -125,7 +125,7 @@ class ProductsIndex extends Component
             {
                 $q->where('name', 'like', '%'.$this->search.'%');
             })
-            ->orderBy('id', 'desc')
+            ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate(10);
         $packages = Package::all();
         $groups = Group::all();
