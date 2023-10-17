@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -399,7 +398,7 @@ class ProductsTableSeeder extends Seeder
                     'id' => 30,
                     'code' => '2000SF_40',
                     'name' => null,
-                    'detail' => 'HH dạng mảnh không kháng sinh gà công nghiệp giai đoạn úm',
+                    'detail' => 'Dạng mảnh không kháng sinh',
                     'description' => null,
                     'package_id' => 4,
                     'group_id' => 6,
@@ -412,7 +411,7 @@ class ProductsTableSeeder extends Seeder
                     'id' => 31,
                     'code' => '2000SF_40',
                     'name' => null,
-                    'detail' => 'HH dạng viên không kháng sinh gà công nghiệp giai đoạn úm',
+                    'detail' => 'Dạng viên không kháng sinh',
                     'description' => null,
                     'package_id' => 4,
                     'group_id' => 6,
@@ -503,7 +502,7 @@ class ProductsTableSeeder extends Seeder
                     'id' => 38,
                     'code' => '2000SM_40',
                     'name' => null,
-                    'detail' => 'HH dạng mảnh không khánh sinh gà công nghiệp giai đoạn úm',
+                    'detail' => 'Dạng mảnh không khánh sinh',
                     'description' => null,
                     'package_id' => 4,
                     'group_id' => 6,
