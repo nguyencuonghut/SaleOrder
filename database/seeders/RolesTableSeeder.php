@@ -28,14 +28,21 @@ class RolesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'Kinh Doanh',
+                    'name' => 'Giám đốc',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Sản Xuất',
+                    'name' => 'Trưởng vùng/Giám sát',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ),
+            3 =>
+                array (
+                    'id' => 4,
+                    'name' => 'Nhân viên',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),

@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
                     'email' => 'nvkd@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
-                    'role_id' => 2,
+                    'role_id' => 4,
                     'email_verified_at' => null,
                     'remember_token' => null,
                     'created_at' => Carbon::now(),
@@ -51,7 +51,7 @@ class UsersTableSeeder extends Seeder
                     'email' => 'truongvung@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
-                    'role_id' => 2,
+                    'role_id' => 3,
                     'email_verified_at' => null,
                     'remember_token' => null,
                     'created_at' => Carbon::now(),
@@ -60,7 +60,7 @@ class UsersTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Giám đốc vùng',
+                    'name' => 'Giám đốc',
                     'email' => 'gdv@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
