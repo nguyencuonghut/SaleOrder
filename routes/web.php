@@ -7,6 +7,8 @@ use App\Livewire\CategoriesIndex;
 use App\Livewire\GroupsCreate;
 use App\Livewire\GroupsIndex;
 use App\Livewire\HomeComponent;
+use App\Livewire\OrdersCreate;
+use App\Livewire\OrdersIndex;
 use App\Livewire\PackagesCreate;
 use App\Livewire\PackagesIndex;
 use App\Livewire\ProductsCreate;
@@ -62,4 +64,7 @@ Route::group(['middleware'=>'auth:web'], function() {
     Route::get('schedules/edit/{id}', SchedulesEdit::class)->name('schedules.edit');
 
     Route::get('cart', CartDetail::class)->name('cart.detail');
+
+    Route::get('orders', OrdersIndex::class)->name('orders.index');
+    Route::get('orders/create', OrdersCreate::class)->name('orders.create');
 });

@@ -10,4 +10,9 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'start_time', 'end_time'];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

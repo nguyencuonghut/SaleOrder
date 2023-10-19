@@ -3,7 +3,7 @@
       <i class="fas fa-shopping-cart"></i>
       <span class="badge badge-success navbar-badge">{{ number_format(Cart::getContent()->count(), 0, '.', ',') }}</span>
     </a>
-    @if(!Cart::isEmpty())
+    @if(Cart::getContent()->count())
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <span class="dropdown-item dropdown-header">{{ number_format(Cart::getTotalQuantity(), 0, '.', ',') }} KG cho {{Cart::getContent()->count()}}  mã hàng</span>
         @foreach (Cart::getContent() as $item)

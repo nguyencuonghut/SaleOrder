@@ -49,7 +49,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form wire:submit.prevent="addSchedule  ">
+                <form wire:submit.prevent="addSchedule">
                   <div class="card-body">
                     <div class="row">
                         <div class="col-6">

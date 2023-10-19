@@ -79,6 +79,13 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Giỏ hàng</h3>
+                <div class="card-tools">
+                    <div class="input-group input-group-sm">
+                        <button type="submit" class="btn btn-warning btn-sm" wire:click.prevent="destroyAll()">Xóa tất cả</button>
+                    </div>
+                  </div>
+              </div>
+
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -118,7 +125,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-sm" wire:click.prevent="destroyAll()">Xóa tất cả</button>
+                <a href="{{route('orders.create')}}" style="width: 100%;" class="btn btn-success btn-sm">Đặt hàng</a>
               </div>
             </div>
             <!-- /.card -->
