@@ -101,7 +101,7 @@ td {
                                                 <td>{{$product->code}}</td>
                                                 <td>{{$product->group->name}}</td>
                                                 <td>
-                                                <button type="button" wire:click.prevent="addToCart({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
+                                                    <button wire:click="selectProduct({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -145,7 +145,7 @@ td {
                                                 </td>
                                                 <td>{{$product->group->name}}</td>
                                                 <td>
-                                                <button type="button" wire:click.prevent="addToCart({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
+                                                    <button wire:click="selectProduct({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -189,7 +189,7 @@ td {
                                                 </td>
                                                 <td>{{$product->group->name}}</td>
                                                 <td>
-                                                <button type="button" wire:click.prevent="addToCart({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
+                                                    <button wire:click="selectProduct({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -233,7 +233,7 @@ td {
                                                 </td>
                                                 <td>{{$product->group->name}}</td>
                                                 <td>
-                                                <button type="button" wire:click.prevent="addToCart({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
+                                                    <button wire:click="selectProduct({{$product->id}})" class="btn btn-danger btn-sm">Đặt hàng</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -263,6 +263,40 @@ td {
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <!-- Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <form autocomplete="off" wire:submit="addToCart">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <span>Nhập số lượng</span>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click.prevent="cancel" >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="number" wire:model="quantity" class="form-control @error('quantity') is-invalid @enderror" id="quantity" aria-describedby="nameHelp">
+                            @error('quantity')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" wire:click.prevent="cancel" ><i class="fa fa-times mr-1"></i> Hủy</button>
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save mr-1"></i>
+                            <span>Lưu</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 
@@ -275,6 +309,15 @@ td {
         let elementName = $(this).attr('id');
         @this.set(elementName, e.target.value);
     });
+
+    $(document).ready(function () {
+        window.addEventListener('hide-form', function (event) {
+            $('#createModal').modal('hide');
+        });
+        });
+        window.addEventListener('show-form', function (event) {
+            $('#createModal').modal('show');
+        });
 </script>
 @endpush
 

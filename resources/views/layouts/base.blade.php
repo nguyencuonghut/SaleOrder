@@ -81,7 +81,7 @@
                  </a>
                </li>
                <li class="nav-item">
-                 <a href="#" class="nav-link {{ Request::is('cart') ? 'active' : '' }}">
+                 <a href="{{route('cart.detail')}}" class="nav-link {{ Request::is('cart') ? 'active' : '' }}" wire:navigate>
                    <i class="far fa-circle nav-icon"></i>
                    <p>Giỏ hàng</p>
                  </a>

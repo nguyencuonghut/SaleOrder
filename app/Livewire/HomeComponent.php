@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use Cart;
 use App\Models\Group;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -16,6 +18,8 @@ class HomeComponent extends Component
     public $search;
     public $group_id;
     public $tab;
+    public $selectedProductId;
+    public $quantity;
 
     public function mount()
     {
@@ -24,6 +28,8 @@ class HomeComponent extends Component
         $this->search = '';
         $this->group_id = null;
         $this->tab = 'customer';
+        $this->selectedProductId = null;
+        $this->quantity = 0;
     }
 
 
@@ -46,10 +52,45 @@ class HomeComponent extends Component
         $this->resetPage();
     }
 
-    public function addToCart($productId)
+    public function selectProduct($productId)
     {
-        $product = Product::findOrFail($productId);
-        dd($product->code);
+        $this->selectedProductId = $productId;
+        $this->dispatch('show-form');
+
+    }
+
+    public function addToCart()
+    {
+        $rules = [
+            'quantity' => 'required|numeric|min:5',
+        ];
+        $messages = [
+            'quantity.required' => 'Bạn phải nhập trọng lượng (kg).',
+            'quantity.numeric' => 'Trọng lượng phải là dạng số.',
+            'quantity.min' => 'Trọng lượng ít nhất phải bằng 5 kg.',
+        ];
+        $this->validate($rules,$messages);
+
+        $product = Product::findOrFail($this->selectedProductId);
+        Cart::add(
+            ['id' => $product->id,
+            'name' => $product->code,
+            'quantity' => $this->quantity,
+            'price' => 0,
+            ])->associate('App\Models\Product');
+
+        Session::flash('success_message', 'Thêm sản phẩm thành công!');
+        $this->dispatch('refreshComponent')->to('count-cart');
+        $this->quantity = 0;
+        $this->selectedProductId = null;
+        $this->dispatch('hide-form');
+    }
+
+    public function cancel()
+    {
+        $this->selectedProductId = null;
+        $this->dispatch('hide-form');
+        $this->resetErrorBag();
     }
 
     public function render()

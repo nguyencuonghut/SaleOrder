@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Livewire\CartDetail;
 use App\Livewire\CategoriesCreate;
 use App\Livewire\CategoriesIndex;
 use App\Livewire\GroupsCreate;
@@ -59,4 +60,6 @@ Route::group(['middleware'=>'auth:web'], function() {
     Route::get('schedules', SchedulesIndex::class)->name('schedules.index');
     Route::get('schedules/create', SchedulesCreate::class)->name('schedules.create');
     Route::get('schedules/edit/{id}', SchedulesEdit::class)->name('schedules.edit');
+
+    Route::get('cart', CartDetail::class)->name('cart.detail');
 });
