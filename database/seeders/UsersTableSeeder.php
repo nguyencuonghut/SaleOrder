@@ -47,8 +47,8 @@ class UsersTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Trưởng vùng',
-                    'email' => 'truongvung@honghafeed.com.vn',
+                    'name' => 'Trưởng vùng 1',
+                    'email' => 'truongvung1@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
                     'role_id' => 3,
@@ -60,8 +60,47 @@ class UsersTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Giám đốc',
-                    'email' => 'gdv@honghafeed.com.vn',
+                    'name' => 'Trưởng vùng 2',
+                    'email' => 'truongvung2@honghafeed.com.vn',
+                    'password' => bcrypt('Hongha@123'),
+                    'is_disable' => 0,
+                    'role_id' => 3,
+                    'email_verified_at' => null,
+                    'remember_token' => null,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ),
+            4 =>
+                array (
+                    'id' => 5,
+                    'name' => 'Trưởng vùng 3',
+                    'email' => 'truongvung3@honghafeed.com.vn',
+                    'password' => bcrypt('Hongha@123'),
+                    'is_disable' => 0,
+                    'role_id' => 3,
+                    'email_verified_at' => null,
+                    'remember_token' => null,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ),
+            5 =>
+                array (
+                    'id' => 6,
+                    'name' => 'Giám đốc 1',
+                    'email' => 'gdv1@honghafeed.com.vn',
+                    'password' => bcrypt('Hongha@123'),
+                    'is_disable' => 0,
+                    'role_id' => 2,
+                    'email_verified_at' => null,
+                    'remember_token' => null,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ),
+            6 =>
+                array (
+                    'id' => 7,
+                    'name' => 'Giám đốc 2',
+                    'email' => 'gdv2@honghafeed.com.vn',
                     'password' => bcrypt('Hongha@123'),
                     'is_disable' => 0,
                     'role_id' => 2,
