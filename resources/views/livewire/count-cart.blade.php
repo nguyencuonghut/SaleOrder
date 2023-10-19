@@ -1,7 +1,7 @@
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
       <i class="fas fa-shopping-cart"></i>
-      <span class="badge badge-success navbar-badge">{{ number_format(Cart::getTotalQuantity(), 0, '.', ',') }}</span>
+      <span class="badge badge-success navbar-badge">{{ number_format(Cart::getContent()->count(), 0, '.', ',') }}</span>
     </a>
     @if(!Cart::isEmpty())
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
