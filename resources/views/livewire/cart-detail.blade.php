@@ -81,7 +81,7 @@
                 <h3 class="card-title">Giỏ hàng</h3>
                 <div class="card-tools">
                     <div class="input-group input-group-sm">
-                        <button type="submit" class="btn btn-warning btn-sm" wire:click.prevent="destroyAll()">Xóa tất cả</button>
+                        <button type="submit" class="btn btn-danger btn-sm" wire:click.prevent="destroyAll()">Xóa tất cả</button>
                     </div>
                   </div>
               </div>
@@ -114,8 +114,8 @@
                             <td>{{$item->name}} {{$product->detail}}</td>
                             <td>{{number_format($item->quantity , 0, '.', ',')}} KG</td>
                             <td>
-                                <button data-toggle="modal" wire:click="edit({{$item->id}})" class="btn btn-warning btn-sm">Sửa</button>
-                                <button class="btn btn-danger btn-sm" wire:click.prevent="destroy('{{ $item->id }}')">Xóa</button>
+                                <button type="button" data-toggle="modal" wire:click="edit({{$item->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                <button type="button" wire:click.prevent="destroy('{{ $item->id }}')" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach

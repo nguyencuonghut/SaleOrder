@@ -97,7 +97,15 @@
                             <td>{{++$sl}}</td>
                             <td>{{$order->schedule->title}}</td>
                             <td>{{$order->creator->name}}</td>
-                            <td>{{$order->status}}</td>
+                            <td>
+                                @if("Chưa duyệt" == $order->status)
+                                    <span class="badge badge-secondary">{{$order->status}}</span>
+                                @elseif ("Giám đốc đã duyệt" == $order->status)
+                                    <span class="badge badge-success">{{$order->status}}</span>
+                                @else
+                                    <span class="badge badge-warning">{{$order->status}}</span>
+                                @endif
+                            </td>
                             <td>{{$order->delivery_date}}</td>
                             <td>{{$order->product_cnt}} sản phẩm {{ number_format($order->total_weight, 0, '.', ',') }} KG</td>
                             <td>
