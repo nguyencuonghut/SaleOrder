@@ -108,7 +108,10 @@
                         @endphp
                         <tr>
                             <td>{{$i}}</td>
-                            <td>{{$item->name}}</td>
+                            @php
+                                $product = App\Models\Product::findOrFail($item->id);
+                            @endphp
+                            <td>{{$item->name}} {{$product->detail}}</td>
                             <td>{{number_format($item->quantity , 0, '.', ',')}} KG</td>
                             <td>
                                 <button data-toggle="modal" wire:click="edit({{$item->id}})" class="btn btn-warning btn-sm">Sửa</button>
