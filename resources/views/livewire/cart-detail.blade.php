@@ -11,7 +11,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            <span>Sửa số lượng</span>
+                            <span>Sửa trọng lượng</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click.prevent="cancel" >
                             <span aria-hidden="true">&times;</span>
@@ -84,8 +84,6 @@
                         <button type="submit" class="btn btn-danger btn-sm" wire:click.prevent="destroyAll()">Xóa tất cả</button>
                     </div>
                   </div>
-              </div>
-
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">

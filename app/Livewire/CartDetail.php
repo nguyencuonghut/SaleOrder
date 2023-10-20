@@ -65,7 +65,7 @@ class CartDetail extends Component
                 'value' => $this->quantity
         ]]);
 
-        Session::flash('success_message', 'Cập nhật thành công số bao');
+        Session::flash('success_message', 'Cập nhật thành công');
         $this->dispatch('refreshComponent')->to('count-cart');
         $this->dispatch('hide-form');
     }

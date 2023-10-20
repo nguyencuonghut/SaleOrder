@@ -31,6 +31,16 @@ class Order extends Model
         return $this->belongsTo(User::class, 'creator_id');
     }
 
+    public function level1_manager()
+    {
+        return $this->belongsTo(User::class, 'level1_manager_id');
+    }
+
+    public function level2_manager()
+    {
+        return $this->belongsTo(User::class, 'level2_manager_id');
+    }
+
     public function getProductCntAttribute()
     {
         $ordersproducts = OrdersProducts::where('order_id', $this->id)->get();

@@ -9,6 +9,7 @@ use App\Livewire\GroupsIndex;
 use App\Livewire\HomeComponent;
 use App\Livewire\OrdersCreate;
 use App\Livewire\OrdersIndex;
+use App\Livewire\OrdersShow;
 use App\Livewire\PackagesCreate;
 use App\Livewire\PackagesIndex;
 use App\Livewire\ProductsCreate;
@@ -67,4 +68,5 @@ Route::group(['middleware'=>'auth:web'], function() {
 
     Route::get('orders', OrdersIndex::class)->name('orders.index');
     Route::get('orders/create', OrdersCreate::class)->name('orders.create');
+    Route::get('orders/{id}', OrdersShow::class)->name('orders.show');
 });

@@ -107,7 +107,11 @@
                                 @endif
                             </td>
                             <td>{{$order->delivery_date}}</td>
-                            <td>{{$order->product_cnt}} sản phẩm {{ number_format($order->total_weight, 0, '.', ',') }} KG</td>
+                            <td>
+                                <a href="{{ route('orders.show', $order->id) }}" wire:navigate>
+                                {{$order->product_cnt}} sản phẩm {{ number_format($order->total_weight, 0, '.', ',') }} KG
+                                </a>
+                            </td>
                             <td>
                                 @if ($deletedOrderIndex === $order->id)
                                     <button type="button" wire:click.prevent="destroy" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
