@@ -35,7 +35,7 @@ class RolesTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Trưởng vùng/Giám sát',
+                    'name' => 'TV/GS',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),
@@ -46,7 +46,13 @@ class RolesTableSeeder extends Seeder
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),
-
+            4 =>
+                array (
+                    'id' => 5,
+                    'name' => 'Sản Xuất',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ),
         ));
     }
 }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('level2_manager_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('level1_manager_approved_result', ['Đồng ý', 'Từ chối']);
             $table->enum('level2_manager_approved_result', ['Đồng ý', 'Từ chối']);
-            $table->enum('status', ['Chưa duyệt', 'Trưởng vùng/Giám sát đã duyệt', 'Giám đốc đã duyệt']);
+            $table->enum('status', ['Chưa duyệt', 'TV/GS đã duyệt', 'Giám đốc đã duyệt']);
             $table->date('delivery_date')->nullable();
             $table->timestamps();
         });

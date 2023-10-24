@@ -21,6 +21,10 @@ class OrdersCreate extends Component
 
     public function addOrder()
     {
+        if(!Auth::user()->can('create-order')){
+            Session::flash('error_message', 'Bạn không có quyền tạo đơn hàng!');
+            return $this->redirect('/cart', navigate: true);
+        }
         //Validate
         $rules = [
             'schedule_id'  => 'required',

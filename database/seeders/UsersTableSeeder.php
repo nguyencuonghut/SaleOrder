@@ -109,6 +109,19 @@ class UsersTableSeeder extends Seeder
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ),
+            7 =>
+                array (
+                    'id' => 8,
+                    'name' => 'NV Sản Xuất',
+                    'email' => 'sanxuat@honghafeed.com.vn',
+                    'password' => bcrypt('Hongha@123'),
+                    'status' => 'Kích hoạt',
+                    'role_id' => 5,
+                    'email_verified_at' => null,
+                    'remember_token' => null,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ),
         ));
     }
 }
