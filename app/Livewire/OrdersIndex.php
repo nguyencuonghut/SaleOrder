@@ -52,7 +52,7 @@ class OrdersIndex extends Component
         $order = Order::findOrFail($this->deletedOrderIndex);
         $order->destroy($this->deletedOrderIndex);
 
-        $this->reset('deletedScheduleIndex');
+        $this->reset('deletedOrderIndex');
         Session::flash('success_message', 'Xóa thành công!');
     }
 
