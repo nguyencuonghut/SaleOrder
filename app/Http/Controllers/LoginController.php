@@ -31,12 +31,18 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             $request->session()->regenerate();
-            if (auth()->user()->type == 'Admin') {
-                Session::flash('success_message', 'Đăng nhập thành công!');
-                return redirect()->route('admin.policies');
+            if("Kích hoạt" == auth()->user()->status){
+                if (auth()->user()->type == 'Admin') {
+                    Session::flash('success_message', 'Đăng nhập thành công!');
+                    return redirect()->route('admin.policies');
+                }else{
+                    Session::flash('success_message', 'Đăng nhập thành công!');
+                    return redirect()->intended('/');
+                }
             }else{
-                Session::flash('success_message', 'Đăng nhập thành công!');
-                return redirect()->intended('/');
+                Auth::logout();
+                Session::flash('error_message', 'Tài khoản đã bị khóa!');
+                return redirect()->route('login');
             }
         }
 

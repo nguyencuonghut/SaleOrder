@@ -24,6 +24,7 @@ class UsersIndex extends Component
     public $editUserName;
     public $editUserEmail;
     public $editUserRoleId;
+    public $editUserStatus;
     public $deletedUserIndex;
 
     private function resetInput()
@@ -38,6 +39,7 @@ class UsersIndex extends Component
         $this->editUserName = null;
         $this->editUserEmail = null;
         $this->editUserRoleId = null;
+        $this->editUserStatus = null;
         $this->deletedUserIndex = null;
     }
 
@@ -94,6 +96,7 @@ class UsersIndex extends Component
         $this->editUserName = $user->name;
         $this->email = $user->email;
         $this->editUserRoleId = $user->role_id;
+        $this->editUserStatus = $user->status;
     }
 
     public function save()
@@ -119,16 +122,17 @@ class UsersIndex extends Component
         $user->name = $this->editUserName;
         $user->email = $this->email;
         $user->role_id = $this->editUserRoleId;
+        $user->status = $this->editUserStatus;
         $user->save();
 
-        $this->reset('editUserIndex', 'editUserName', 'editUserEmail', 'editUserRoleId');
+        $this->reset('editUserIndex', 'editUserName', 'editUserEmail', 'editUserRoleId', 'editUserStatus');
         Session::flash('success_message', 'Cập nhật thành công!');
     }
 
 
     public function cancel()
     {
-        $this->reset('editUserIndex', 'editUserName', 'email', 'deletedUserIndex');
+        $this->reset('editUserIndex', 'editUserName', 'email', 'editUserStatus', 'deletedUserIndex');
         $this->resetErrorBag();
     }
 
@@ -156,6 +160,7 @@ class UsersIndex extends Component
                     {
                         $q->where('name', 'like', '%'.$this->search.'%');
                     })
+                    ->whereLike('status', $this->search)
                     ->paginate(10);
         $roles = Role::all();
         return view('livewire.users-index', ['users' => $users, 'roles' => $roles])->layout('layouts.base');

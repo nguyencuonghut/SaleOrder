@@ -56,12 +56,13 @@
                       <th>Tên</th>
                       <th>Email</th>
                       <th>Vai trò</th>
+                      <th>Trạng thái</th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($users as $user)
-                        <tr>
+                        <tr style="{{'Vô hiệu' === $user->status ? 'text-decoration: line-through;' : ''}}">
                             <td>{{$user->id}}</td>
                             <td>
                                 @if ($editUserIndex === $user->id)
@@ -88,6 +89,17 @@
                                     </select>
                                 @else
                                     {{$user->role->name}}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editUserIndex === $user->id)
+                                    <select style="width:100%;" class="form-control" wire:model="editUserStatus">
+                                        <option value="Kích hoạt">Kích hoạt</option>
+                                        <option value="Vô hiệu">Vô hiệu</option>
+                                    </select>
+                                @else
+                                    <span class="badge {{'Vô hiệu' == $user->status ? 'badge-danger' : 'badge-success'}}">{{$user->status}}</span>
+
                                 @endif
                             </td>
                             <td>
