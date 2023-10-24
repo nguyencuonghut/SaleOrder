@@ -117,7 +117,7 @@
                                     <button type="button" wire:click.prevent="destroy" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
                                     <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
                                 @else
-                                    <a href="#" wire:navigate><button class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button></a>
+                                    <a href="{{route('orders.edit', $order->id)}}" wire:navigate><button class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button></a>
                                     <button type="button" wire:click.prevent="confirmDestroy({{$order->id}})" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
                                 @endif
                             </td>
