@@ -12,18 +12,25 @@ class OrdersShow extends Component
     public $order_id;
     public $quantity;
     public $editedOrderProductId;
+    public $deletedOrderProductId;
 
     public function mount($id)
     {
         $this->order_id = $id;
         $this->quantity = 0;
         $this->editedOrderProductId = null;
+        $this->deletedOrderProductId = null;
     }
 
-    public function destroy($id)
+    public function confirmDestroy($id)
     {
-        $orderproduct = OrdersProducts::findOrFail($id);
-        $orderproduct->destroy($id);
+        $this->deletedOrderProductId = $id;
+    }
+
+    public function destroy()
+    {
+        $orderproduct = OrdersProducts::findOrFail($this->deletedOrderProductId);
+        $orderproduct->destroy($this->deletedOrderProductId);
         Session::flash('success_message', "Đã xóa sản phẩm khỏi đơn hàng!");
     }
 
@@ -37,7 +44,7 @@ class OrdersShow extends Component
 
     public function cancel()
     {
-        $this->quantity = 0;
+        $this->reset('editedOrderProductId', 'deletedOrderProductId', 'quantity');
         $this->resetErrorBag();
         $this->dispatch('hide-form');
     }
@@ -58,6 +65,7 @@ class OrdersShow extends Component
         $orderproduct->quantity = $this->quantity;
         $orderproduct->save();
 
+        $this->reset('editedOrderProductId', 'quantity');
         Session::flash('success_message', 'Cập nhật thành công');
         $this->dispatch('hide-form');
     }
