@@ -44,8 +44,6 @@ class OrdersCreate extends Component
         $order->creator_id = Auth::user()->id;
         $order->level1_manager_id = $this->level1_manager_id;
         $order->level2_manager_id = $this->level2_manager_id;
-        $order->level1_manager_approved_result = "Từ chối";
-        $order->level2_manager_approved_result = "Từ chối";
         $order->status = "Chưa duyệt";
         if($this->delivery_date){
             $order->delivery_date = Carbon::createFromFormat('d/m/Y', $this->delivery_date);

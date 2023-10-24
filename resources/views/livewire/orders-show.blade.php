@@ -66,7 +66,20 @@
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
                             <address>
-                                <strong>Giám đốc duyệt</strong><br>
+                                <strong>Trưởng vùng/Giám sát</strong><br>
+                                {{$order->level2_manager->name}}
+                                @if("Đồng ý" == $order->level2_manager_approved_result)
+                                    <span class="badge badge-success">{{$order->level2_manager_approved_result}}</span>
+                                @else
+                                    <span class="badge badge-danger">{{$order->level2_manager_approved_result}}</span>
+                                @endif
+                            </address>
+                            </div>
+                        </div>
+                        <div class="row invoice-info">
+                            <div class="col-sm-4 invoice-col">
+                            <address>
+                                <strong>Giám đốc</strong><br>
                                 {{$order->level1_manager->name}}
 
                                 @if("Đồng ý" == $order->level1_manager_approved_result)
@@ -75,19 +88,6 @@
                                     <span class="badge badge-danger">{{$order->level1_manager_approved_result}}</span>
                                 @endif
                             </address>
-                            </div>
-                        </div>
-                        <div class="row invoice-info">
-                            <div class="col-sm-4 invoice-col">
-                                <address>
-                                <strong>Trưởng vùng/Giám sát duyệt</strong><br>
-                                {{$order->level2_manager->name}}
-                                @if("Đồng ý" == $order->level2_manager_approved_result)
-                                    <span class="badge badge-success">{{$order->level2_manager_approved_result}}</span>
-                                @else
-                                    <span class="badge badge-danger">{{$order->level2_manager_approved_result}}</span>
-                                @endif
-                                </address>
                             </div>
                             <!-- /.col -->
                             <div class="col-sm-4 invoice-col">
