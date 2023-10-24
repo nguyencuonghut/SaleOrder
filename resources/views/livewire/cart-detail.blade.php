@@ -105,9 +105,11 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              @can('create-order')
               <div class="card-footer">
                 <a href="{{route('orders.create')}}" style="width: 100%;" class="btn btn-success btn-sm">Đặt hàng</a>
               </div>
+              @endcan
             </div>
             <!-- /.card -->
             @else
