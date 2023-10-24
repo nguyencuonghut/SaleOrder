@@ -3,41 +3,6 @@
 @endsection
 
 <div>
-
-  <!-- Modal -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
-        <div class="modal-dialog" role="document">
-            <form autocomplete="off" wire:submit="update">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <span>Sửa trọng lượng</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click.prevent="cancel" >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="number" wire:model="quantity" class="form-control @error('quantity') is-invalid @enderror" id="quantity" aria-describedby="nameHelp">
-                            @error('quantity')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" wire:click.prevent="cancel" ><i class="fa fa-times mr-1"></i> Hủy</button>
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save mr-1"></i>
-                            <span>Lưu</span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -100,7 +65,7 @@
                       @php
                           $i = 0;
                       @endphp
-                    @foreach (Cart::getContent() as $item)
+                    @foreach (Cart::getContent()->sortBy('id') as $item)
                         @php
                             $i++;
                         @endphp
@@ -110,10 +75,25 @@
                                 $product = App\Models\Product::findOrFail($item->id);
                             @endphp
                             <td>{{$item->name}} {{$product->detail}}</td>
-                            <td>{{number_format($item->quantity , 0, '.', ',')}} KG</td>
                             <td>
-                                <button type="button" data-toggle="modal" wire:click="edit({{$item->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
-                                <button type="button" wire:click.prevent="destroy('{{ $item->id }}')" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @if ($editedRowId === $item->id)
+                                    <input type="number" class="form-control" wire:model.defer="quantity">
+                                @error('quantity') <span style="color:red;">{{ $message }}</span>@enderror
+                                @else
+                                    {{number_format($item->quantity , 0, '.', ',')}} KG
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editedRowId === $item->id)
+                                    <button type="button" wire:click.prevent="update" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
+                                @elseif ($destroyedRowId === $item->id)
+                                    <button type="button" wire:click.prevent="destroy" class="btn btn-outline-success btn-sm"><i class="fa fa-check-square"></i></button>
+                                    <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
+                                @else
+                                    <button type="button" wire:click.prevent="edit({{$item->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                    <button type="button" wire:click.prevent="confirmDestroy({{$item->id}})" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

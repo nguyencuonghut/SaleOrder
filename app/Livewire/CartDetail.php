@@ -9,17 +9,20 @@ use Livewire\Component;
 class CartDetail extends Component
 {
     public $quantity;
-    public $rowId;
+    public $editedRowId;
+    public $destroyedRowId;
 
     public function mount()
     {
         $this->quantity = 0;
-        $this->rowId = null;
+        $this->editedRowId = null;
+        $this->destroyedRowId = null;
     }
 
-    public function destroy($rowId)
+    public function destroy()
     {
-        Cart::remove($rowId);
+        Cart::remove($this->destroyedRowId);
+        $this->destroyedRowId = null;
         $this->dispatch('refreshComponent')->to('count-cart');
         Session::flash('success_message', "Đã xóa sản phẩm khỏi giỏ hàng!");
     }
@@ -37,12 +40,22 @@ class CartDetail extends Component
         $this->dispatch('show-form');
         $cart = Cart::get($rowId);
         $this->quantity = $cart->quantity;
-        $this->rowId = $cart->id;
+        $this->editedRowId = $cart->id;
+    }
+
+    public function confirmDestroy($rowId)
+    {
+        $this->dispatch('show-form');
+        $cart = Cart::get($rowId);
+        $this->quantity = $cart->quantity;
+        $this->destroyedRowId = $cart->id;
     }
 
     public function cancel()
     {
         $this->quantity = 0;
+        $this->editedRowId = null;
+        $this->destroyedRowId = null;
         $this->resetErrorBag();
         $this->dispatch('hide-form');
     }
@@ -59,11 +72,15 @@ class CartDetail extends Component
         ];
         $this->validate($rules,$messages);
 
-        Cart::update($this->rowId, [
+        Cart::update($this->editedRowId, [
             'quantity' => [
                 'relative' => false,
                 'value' => $this->quantity
         ]]);
+
+        $this->quantity = 0;
+        $this->editedRowId = null;
+        $this->destroyedRowId = null;
 
         Session::flash('success_message', 'Cập nhật thành công');
         $this->dispatch('refreshComponent')->to('count-cart');
