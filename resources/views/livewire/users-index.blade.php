@@ -52,11 +52,41 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>Tên</th>
-                      <th>Email</th>
-                      <th>Vai trò</th>
-                      <th>Trạng thái</th>
+                      <th wire:click.prevent="sortBy('id')"><a role="button" href="#" style="color:#212529">ID</a>
+                        @if($sortField == 'id')
+                          <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'id' ? '' : 'color:#cccccc'}} "></i>
+                        @else
+                          <i class="fa fa-sort" style="color:#cccccc"></i>
+                        @endif
+                      </th>
+                      <th wire:click.prevent="sortBy('name')" ><a role="button" href="#" style="color:#212529">Tên</a>
+                        @if($sortField == 'name')
+                          <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'name' ? '' : 'color:#cccccc'}} "></i>
+                        @else
+                          <i class="fa fa-sort" style="color:#cccccc"></i>
+                        @endif
+                      </th>
+                      <th wire:click.prevent="sortBy('email')" ><a role="button" href="#" style="color:#212529">Email</a>
+                        @if($sortField == 'email')
+                          <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'email' ? '' : 'color:#cccccc'}} "></i>
+                        @else
+                          <i class="fa fa-sort" style="color:#cccccc"></i>
+                        @endif
+                      </th>
+                      <th wire:click.prevent="sortBy('role_id')" ><a role="button" href="#" style="color:#212529">Vai trò</a>
+                        @if($sortField == 'role_id')
+                          <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'role_id' ? '' : 'color:#cccccc'}} "></i>
+                        @else
+                          <i class="fa fa-sort" style="color:#cccccc"></i>
+                        @endif
+                      </th>
+                      <th wire:click.prevent="sortBy('status')" ><a role="button" href="#" style="color:#212529">Trạng thái</a>
+                        @if($sortField == 'status')
+                          <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'status' ? '' : 'color:#cccccc'}} "></i>
+                        @else
+                          <i class="fa fa-sort" style="color:#cccccc"></i>
+                        @endif
+                      </th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>

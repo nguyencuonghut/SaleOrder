@@ -15,6 +15,8 @@ class UsersIndex extends Component
     use WithPagination;
 
     public $search;
+    public $sortAsc;
+    public $sortField;
     public $name;
     public $email;
     public $role_id;
@@ -31,6 +33,8 @@ class UsersIndex extends Component
     {
         $this->search = '';
         $this->name = '';
+        $this->sortField = 'id';
+        $this->sortAsc = false;
         $this->email = '';
         $this->role_id = '';
         $this->password = '';
@@ -46,6 +50,17 @@ class UsersIndex extends Component
     public function mount()
     {
         $this->resetInput();
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortAsc = ! $this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+
+        $this->sortField = $field;
     }
 
     public function addNew()
@@ -161,6 +176,7 @@ class UsersIndex extends Component
                         $q->where('name', 'like', '%'.$this->search.'%');
                     })
                     ->whereLike('status', $this->search)
+                    ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                     ->paginate(10);
         $roles = Role::all();
         return view('livewire.users-index', ['users' => $users, 'roles' => $roles])->layout('layouts.base');
