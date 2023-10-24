@@ -124,7 +124,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <label class="required-field" class="control-label" for="delivery_date">Ngày lấy hàng </label>
+                            <label class="control-label" for="delivery_date">Ngày lấy hàng </label>
                             <input type="text" class="form-control" id="delivery_date" name="delivery_date" wire:model.lazy="delivery_date" autocomplete="off">
                             @error('delivery_date') <span style="color:red;">{{ $message }}</span>@enderror
                         </div>

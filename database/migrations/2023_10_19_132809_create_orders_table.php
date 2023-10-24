@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('level1_manager_approved_result', ['Đồng ý', 'Từ chối']);
             $table->enum('level2_manager_approved_result', ['Đồng ý', 'Từ chối']);
             $table->enum('status', ['Chưa duyệt', 'Trưởng vùng/Giám sát đã duyệt', 'Giám đốc đã duyệt']);
-            $table->date('delivery_date');
+            $table->date('delivery_date')->nullable();
             $table->timestamps();
         });
     }

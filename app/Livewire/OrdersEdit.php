@@ -35,13 +35,11 @@ class OrdersEdit extends Component
             'schedule_id'  => 'required',
             'level1_manager_id'  => 'required',
             'level2_manager_id'  => 'required',
-            'delivery_date'  => 'required',
         ];
         $messages = [
             'schedule_id.required' => 'Bạn phải chọn kỳ đặt hàng.',
             'level1_manager_id.required' => 'Bạn phải chọn trưởng vùng/giám sát.',
             'level2_manager_id.required' => 'Bạn phải chọn giám đốc.',
-            'delivery_date.required' => 'Bạn phải nhập ngày lấy hàng.',
         ];
 
         //Create new order
@@ -51,7 +49,11 @@ class OrdersEdit extends Component
         $order->creator_id = Auth::user()->id;
         $order->level1_manager_id = $this->level1_manager_id;
         $order->level2_manager_id = $this->level2_manager_id;
-        $order->delivery_date = Carbon::createFromFormat('d/m/Y', $this->delivery_date);
+        if($this->delivery_date){
+            $order->delivery_date = Carbon::createFromFormat('d/m/Y', $this->delivery_date);
+        }else{
+            $order->delivery_date = null;
+        }
         $order->save();
 
         $this->reset(['schedule_id', 'level1_manager_id', 'level2_manager_id', 'delivery_date']);
