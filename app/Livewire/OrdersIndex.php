@@ -11,7 +11,7 @@ class OrdersIndex extends Component
     public $search;
     public $sortField;
     public $sortAsc;
-    public $editOrderIndex;
+    public $editedOrderIndex;
     public $deletedOrderIndex;
 
     public function mount()
@@ -19,7 +19,7 @@ class OrdersIndex extends Component
         $this->search = '';
         $this->sortField = 'id';
         $this->sortAsc = false;
-        $this->editOrderIndex = null;
+        $this->editedOrderIndex = null;
         $this->deletedOrderIndex = null;
     }
 
@@ -37,7 +37,7 @@ class OrdersIndex extends Component
 
     public function cancel()
     {
-        $this->reset('deletedOrderIndex');
+        $this->reset('editedOrderIndex', 'deletedOrderIndex');
         $this->resetErrorBag();
     }
 
