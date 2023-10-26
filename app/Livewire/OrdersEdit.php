@@ -50,7 +50,7 @@ class OrdersEdit extends Component
         $order->level1_manager_id = $this->level1_manager_id;
         $order->level2_manager_id = $this->level2_manager_id;
         if($this->delivery_date){
-            $order->delivery_date = Carbon::createFromFormat('d/m/Y', $this->delivery_date);
+            $order->delivery_date = Carbon::createFromFormat('Y-m-d', $this->delivery_date);
         }else{
             $order->delivery_date = null;
         }

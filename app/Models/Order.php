@@ -56,4 +56,19 @@ class Order extends Model
         }
         return $total_weight;
     }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function($query) use ($term) {
+            $query->where('delivery_date', 'like', $term)
+                ->orWhere('status', 'like', $term)
+                ->orWhereHas('schedule', function ($query) use($term){
+                    $query->where('title', 'LIKE', '%' . $term . '%');
+                })
+                ->orWhereHas('creator', function ($query) use($term){
+                    $query->where('name', 'LIKE', '%' . $term . '%');
+                });
+        });
+    }
 }
