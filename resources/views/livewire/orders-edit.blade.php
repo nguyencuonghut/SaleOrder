@@ -51,7 +51,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <div wire:key="UNIQUE_KEY">
-                                  <div wire:ignore>
+                                  <div>
                                     <label class="required-field" class="control-label" for="schedule_id">Kỳ</label>
                                     <div class="controls">
                                         <select style="width:100%;" name="schedule_id" id="schedule_id" class="form-control select2" wire.model.defer="schedule_id">
@@ -72,11 +72,12 @@
                         </div>
                     </div>
 
+                    @if($order->level2_manager_id)
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <div wire:key="UNIQUE_KEY">
-                                  <div wire:ignore>
+                                  <div>
                                     <label class="required-field" class="control-label" for="level2_manager_id">Trưởng vùng/Giám sát</label>
                                     <div class="controls">
                                         <select style="width:100%;" name="level2_manager_id" id="level2_manager_id" class="form-control select2" wire.model.defer="level2_manager_id">
@@ -96,12 +97,14 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
+                    @if($order->level1_manager_id)
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <div wire:key="UNIQUE_KEY">
-                                  <div wire:ignore>
+                                  <div>
                                     <label class="required-field" class="control-label" for="level1_manager_id">Giám đốc</label>
                                     <div class="controls">
                                         <select style="width:100%;" name="level1_manager_id" id="level1_manager_id" class="form-control select2" wire.model.defer="level1_manager_id">
@@ -121,6 +124,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <div class="row">
                         <div class="col-12">
