@@ -26,25 +26,64 @@ class OrdersCreate extends Component
             return $this->redirect('/cart', navigate: true);
         }
         //Validate
-        $rules = [
-            'schedule_id'  => 'required',
-            'level1_manager_id'  => 'required',
-            'level2_manager_id'  => 'required',
-        ];
-        $messages = [
-            'schedule_id.required' => 'Bạn phải chọn kỳ đặt hàng.',
-            'level1_manager_id.required' => 'Bạn phải chọn trưởng vùng/giám sát.',
-            'level2_manager_id.required' => 'Bạn phải chọn giám đốc.',
-        ];
+        switch(Auth::user()->role->name){
+            case 'Nhân viên':
+            case 'Admin':
+            case 'Sản Xuất':
+                $rules = [
+                    'schedule_id'  => 'required',
+                    'level1_manager_id'  => 'required',
+                    'level2_manager_id'  => 'required',
+                ];
+                $messages = [
+                    'schedule_id.required' => 'Bạn phải chọn kỳ đặt hàng.',
+                    'level1_manager_id.required' => 'Bạn phải chọn giám đốc.',
+                    'level2_manager_id.required' => 'Bạn phải chọn trưởng vùng/giám sát.',
+                ];
+                $status = 'Chưa duyệt';
+                break;
+            case 'TV/GS':
+                $rules = [
+                    'schedule_id'  => 'required',
+                    'level1_manager_id'  => 'required',
+                ];
+                $messages = [
+                    'schedule_id.required' => 'Bạn phải chọn kỳ đặt hàng.',
+                    'level1_manager_id.required' => 'Bạn phải chọn giám đốc.',
+                ];
+                $status = 'TV/GS đã duyệt';
+                break;
+            case 'Giám đốc':
+                $rules = [
+                    'schedule_id'  => 'required',
+                ];
+                $messages = [
+                    'schedule_id.required' => 'Bạn phải chọn kỳ đặt hàng.',
+                ];
+                $status = 'Giám đốc đã duyệt';
+                break;
+        }
 
         //Create new order
         $this->validate($rules, $messages);
         $order = new Order();
         $order->schedule_id = $this->schedule_id;
         $order->creator_id = Auth::user()->id;
-        $order->level1_manager_id = $this->level1_manager_id;
-        $order->level2_manager_id = $this->level2_manager_id;
-        $order->status = "Chưa duyệt";
+        if(null != $this->level1_manager_id){
+            $order->level1_manager_id = $this->level1_manager_id;
+        }else{
+            $order->level1_manager_id = Auth::user()->id;
+            $order->level1_manager_approved_result = 'Đồng ý';
+        }
+        if(null != $this->level2_manager_id){
+            $order->level2_manager_id = $this->level2_manager_id;
+        }else{
+            if('TV/GS' == Auth::user()->role->name){
+                $order->level2_manager_id = Auth::user()->id;
+                $order->level2_manager_approved_result = 'Đồng ý';
+            }
+        }
+        $order->status = $status;
         if($this->delivery_date){
             $order->delivery_date = Carbon::createFromFormat('d/m/Y', $this->delivery_date);
         }

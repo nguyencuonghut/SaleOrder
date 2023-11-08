@@ -79,6 +79,7 @@ class OrdersIndex extends Component
             case 'Giám đốc':
                 $orders = Order::where('level1_manager_id', Auth::user()->id)
                                 ->where('status', 'TV/GS đã duyệt')
+                                ->orwhere('status', 'Giám đốc đã duyệt')
                                 ->search($this->search)
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                                 ->get();

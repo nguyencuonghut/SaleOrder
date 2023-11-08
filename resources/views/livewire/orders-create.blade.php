@@ -55,7 +55,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <div wire:key="UNIQUE_KEY">
-                                  <div wire:ignore>
+                                  <div>
                                     <label class="required-field" class="control-label" for="schedule_id">Kỳ</label>
                                     <div class="controls">
                                         <select style="width:100%;" name="schedule_id" id="schedule_id" class="form-control select2" wire.model.defer="schedule_id">
@@ -66,9 +66,7 @@
                                         </select>
                                     </div>
                                     @error('schedule_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                   </div>
                                 </div>
@@ -76,11 +74,12 @@
                         </div>
                     </div>
 
+                    @if('Nhân viên' == Auth::user()->role->name)
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <div wire:key="UNIQUE_KEY">
-                                  <div wire:ignore>
+                                  <div>
                                     <label class="required-field" class="control-label" for="level2_manager_id">Trưởng vùng/Giám sát</label>
                                     <div class="controls">
                                         <select style="width:100%;" name="level2_manager_id" id="level2_manager_id" class="form-control select2" wire.model.defer="level2_manager_id">
@@ -91,21 +90,22 @@
                                         </select>
                                     </div>
                                     @error('level2_manager_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                   </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
 
+                    @if('Nhân viên' == Auth::user()->role->name
+                    || 'TV/GS' == Auth::user()->role->name)
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <div wire:key="UNIQUE_KEY">
-                                  <div wire:ignore>
+                                  <div>
                                     <label class="required-field" class="control-label" for="level1_manager_id">Giám đốc</label>
                                     <div class="controls">
                                         <select style="width:100%;" name="level1_manager_id" id="level1_manager_id" class="form-control select2" wire.model.defer="level1_manager_id">
@@ -116,15 +116,14 @@
                                         </select>
                                     </div>
                                     @error('level1_manager_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                        <span class="text-danger"> {{ $message }}</span>
                                     @enderror
                                   </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <div class="row">
                         <div class="col-12">

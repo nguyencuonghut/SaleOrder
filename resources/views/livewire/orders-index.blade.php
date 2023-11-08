@@ -108,7 +108,7 @@
                             </td>
                             <td>{{$order->delivery_date}}</td>
                             <td>
-                                <a href="{{ route('orders.show', $order->id) }}" wire:navigate>
+                                <a href="{{ route('orders.show', $order->id) }}">
                                 {{$order->product_cnt}} sản phẩm {{ number_format($order->total_weight, 0, '.', ',') }} KG
                                 </a>
                             </td>
