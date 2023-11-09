@@ -74,57 +74,6 @@
                         </div>
                     </div>
 
-                    @if('Nhân viên' == Auth::user()->role->name)
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div wire:key="UNIQUE_KEY">
-                                  <div>
-                                    <label class="required-field" class="control-label" for="level2_manager_id">Trưởng vùng/Giám sát</label>
-                                    <div class="controls">
-                                        <select style="width:100%;" name="level2_manager_id" id="level2_manager_id" class="form-control select2" wire.model.defer="level2_manager_id">
-                                            <option selected="selected" disabled>-- Chọn --</option>
-                                            @foreach ($level2_managers as $level2_manager)
-                                                <option value="{{$level2_manager->id}}">{{$level2_manager->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('level2_manager_id')
-                                        <span class="text-danger"> {{ $message }}</span>
-                                    @enderror
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-
-                    @if('Nhân viên' == Auth::user()->role->name
-                    || 'TV/GS' == Auth::user()->role->name)
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div wire:key="UNIQUE_KEY">
-                                  <div>
-                                    <label class="required-field" class="control-label" for="level1_manager_id">Giám đốc</label>
-                                    <div class="controls">
-                                        <select style="width:100%;" name="level1_manager_id" id="level1_manager_id" class="form-control select2" wire.model.defer="level1_manager_id">
-                                            <option selected="selected" disabled>-- Chọn --</option>
-                                            @foreach ($level1_managers as $level1_manager)
-                                                <option value="{{$level1_manager->id}}">{{$level1_manager->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('level1_manager_id')
-                                        <span class="text-danger"> {{ $message }}</span>
-                                    @enderror
-                                  </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-
                     <div class="row">
                         <div class="col-12">
                             <label class="control-label" for="delivery_date">Ngày lấy hàng </label>

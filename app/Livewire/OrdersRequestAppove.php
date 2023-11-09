@@ -36,7 +36,7 @@ class OrdersRequestAppove extends Component
                 $messages = [
                     'level2_manager_id.required' => 'Bạn phải chọn trưởng vùng/giám sát.',
                 ];
-                $toMail = $order->level2_manager->email;
+                $toMail = User::findOrFail($this->level2_manager_id)->email;
                 $order->level2_manager_id = $this->level2_manager_id;
                 break;
             case 'TV/GS':
@@ -46,7 +46,7 @@ class OrdersRequestAppove extends Component
                 $messages = [
                     'level1_manager_id.required' => 'Bạn phải chọn giám đốc.',
                 ];
-                $toMail = $order->level1_manager->email;
+                $toMail = User::findOrFail($this->level1_manager_id)->email;
                 $order->level1_manager_id = $this->level1_manager_id;
                 break;
         }

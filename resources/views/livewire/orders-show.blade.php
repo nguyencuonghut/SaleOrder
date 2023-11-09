@@ -96,6 +96,8 @@
                                 <strong>Trưởng vùng/Giám sát</strong><br>
                                 @if ($order->level2_manager_id)
                                     {{$order->level2_manager->name}}
+                                @else
+                                    #
                                 @endif
                                 @if("Đồng ý" == $order->level2_manager_approved_result)
                                     <span class="badge badge-success">{{$order->level2_manager_approved_result}}</span>
@@ -111,6 +113,8 @@
                                 <strong>Giám đốc</strong><br>
                                 @if ($order->level1_manager_id)
                                     {{$order->level1_manager->name}}
+                                @else
+                                    #
                                 @endif
 
                                 @if("Đồng ý" == $order->level1_manager_approved_result)
@@ -124,7 +128,13 @@
                             <div class="col-sm-4 invoice-col">
                             <address>
                                 <strong>Trạng thái</strong><br>
-                                {{$order->status}}
+                                @if("Chưa duyệt" == $order->status)
+                                    <span class="badge badge-secondary">{{$order->status}}</span>
+                                @elseif ("Giám đốc đã duyệt" == $order->status)
+                                    <span class="badge badge-success">{{$order->status}}</span>
+                                @else
+                                    <span class="badge badge-warning">{{$order->status}}</span>
+                                @endif
                             </address>
                             </div>
                             <!-- /.col -->
