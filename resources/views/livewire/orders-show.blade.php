@@ -48,6 +48,33 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Thông tin chung</h3>
+                      @if('Giám đốc đã duyệt' != $order->status)
+                      <div class="card-tools">
+                        <ul class="dropdown">
+                            <a data-toggle="dropdown" href="#">
+                              <button type="button" class="btn btn-primary btn-sm">Thao tác</button>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                @if('Nhân viên' == Auth::user()->role->name
+                                || 'TV/GS' == Auth::user()->role->name)
+                                    <a href="{{route('orders.request', $order->id)}}" class="dropdown-item">
+                                        Yêu cầu duyệt
+                                    </a>
+                                @endif
+                                @if(('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status
+                                    || ('TV/GS' == Auth::user()->role->name) && 'Chưa duyệt' == $order->status))
+                                    <a href="#" class="dropdown-item">
+                                        Duyệt đơn hàng
+                                    </a>
+                                @endif
+                            </div>
+                        </ul>
+                      </div>
+                      @endif
+                    </div>
                     <div class="card-body">
                         <div class="row invoice-info">
                             <div class="col-sm-4 invoice-col">
@@ -67,7 +94,9 @@
                             <div class="col-sm-4 invoice-col">
                             <address>
                                 <strong>Trưởng vùng/Giám sát</strong><br>
-                                {{$order->level2_manager->name}}
+                                @if ($order->level2_manager_id)
+                                    {{$order->level2_manager->name}}
+                                @endif
                                 @if("Đồng ý" == $order->level2_manager_approved_result)
                                     <span class="badge badge-success">{{$order->level2_manager_approved_result}}</span>
                                 @else
@@ -80,7 +109,9 @@
                             <div class="col-sm-4 invoice-col">
                             <address>
                                 <strong>Giám đốc</strong><br>
-                                {{$order->level1_manager->name}}
+                                @if ($order->level1_manager_id)
+                                    {{$order->level1_manager->name}}
+                                @endif
 
                                 @if("Đồng ý" == $order->level1_manager_approved_result)
                                     <span class="badge badge-success">{{$order->level1_manager_approved_result}}</span>
