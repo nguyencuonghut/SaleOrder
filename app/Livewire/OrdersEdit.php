@@ -21,6 +21,12 @@ class OrdersEdit extends Component
     public function mount($id)
     {
         $order = Order::findOrFail($id);
+        //Check condition before rendering page
+        if(Auth::user()->id != $order->creator_id){
+            Session::flash('error_message', 'Bạn không có quyền sửa đơn đặt hàng này!');
+            return $this->redirect('/orders');
+        }
+
         $this->editedOrderId = $order->id;
         $this->schedule_id = $order->schedule_id;
         $this->level1_manager_id = $order->level1_manager_id;

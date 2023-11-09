@@ -51,6 +51,12 @@ class OrdersIndex extends Component
     {
         // Destroy order
         $order = Order::findOrFail($this->deletedOrderIndex);
+        //Check condition before destroying
+        if(Auth::user()->id != $order->creator_id){
+            Session::flash('error_message', 'Bạn không có quyền xóa đơn đặt hàng này!');
+            return $this->redirect('/orders');
+        }
+
         $order->destroy($this->deletedOrderIndex);
 
         $this->reset('deletedOrderIndex');
