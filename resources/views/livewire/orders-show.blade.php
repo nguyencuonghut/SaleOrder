@@ -58,14 +58,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                @if('Nhân viên' == Auth::user()->role->name
-                                || 'TV/GS' == Auth::user()->role->name)
+                                @if(('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                || ('TV/GS' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status))
                                     <a href="{{route('orders.request', $order->id)}}" class="dropdown-item">
                                         Yêu cầu duyệt
                                     </a>
                                 @endif
-                                @if(('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status
-                                    || ('TV/GS' == Auth::user()->role->name) && 'Chưa duyệt' == $order->status))
+                                @if(('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status)
+                                    || ('TV/GS' == Auth::user()->role->name && 'Chưa duyệt' == $order->status))
                                     <a href="#" class="dropdown-item">
                                         Duyệt đơn hàng
                                     </a>
