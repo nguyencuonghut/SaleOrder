@@ -49,7 +49,7 @@ class Order extends Model
 
     public function getTotalWeightAttribute()
     {
-        $ordersproducts = OrdersProducts::where('order_id', $this->id)->get();
+        $ordersproducts = OrdersProducts::where('order_id', $this->id)->where('is_deleted', false)->get();
         $total_weight = 0;
         foreach($ordersproducts as $item){
             $total_weight += $item->quantity;

@@ -54,6 +54,7 @@ class OrdersCreate extends Component
 
         $order->schedule_id = $this->schedule_id;
         $order->creator_id = Auth::user()->id;
+        $order->is_deleted = false;
         if($this->delivery_date){
             $order->delivery_date = Carbon::createFromFormat('d/m/Y', $this->delivery_date);
         }
