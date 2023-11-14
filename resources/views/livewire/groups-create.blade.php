@@ -11,8 +11,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/" wire:navigate>Trang chủ</a></li>
-              <li class="breadcrumb-item"><a href="{{route('groups.index')}}" wire:navigate>Nhóm SP</a></li>
+              <li class="breadcrumb-item"><a href="/" >Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="{{route('groups.index')}}" >Nhóm SP</a></li>
               <li class="breadcrumb-item active">Thêm mới</li>
             </ol>
           </div>

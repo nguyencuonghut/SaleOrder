@@ -11,7 +11,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/" wire:navigate>Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="/" >Trang chủ</a></li>
               <li class="breadcrumb-item active">Kỳ đặt hàng</li>
             </ol>
           </div>
@@ -47,7 +47,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <a style="margin: 10px;" href="{{route('schedules.create')}}" wire:navigate><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></a>
+                <a style="margin: 10px;" href="{{route('schedules.create')}}" ><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></a>
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
@@ -104,7 +104,7 @@
                                     <button type="button" wire:click.prevent="destroy" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
                                     <button type="button" wire:click.prevent="cancel" class="btn btn-outline-danger btn-sm"><i class="fa fa-times-circle"></i></button>
                                 @else
-                                    <a href="{{route('schedules.edit', $schedule->id)}}" wire:navigate><button class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button></a>
+                                    <a href="{{route('schedules.edit', $schedule->id)}}" ><button class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button></a>
                                     <button type="button" wire:click.prevent="confirmDestroy({{$schedule->id}})" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
                                 @endif
                             </td>

@@ -11,7 +11,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/" wire:navigate>Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="/" >Trang chủ</a></li>
               <li class="breadcrumb-item active">Nhóm SP</li>
             </ol>
           </div>
@@ -47,7 +47,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <a style="margin: 10px;" href="{{route('groups.create')}}" wire:navigate><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></a>
+                <a style="margin: 10px;" href="{{route('groups.create')}}" ><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></a>
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>

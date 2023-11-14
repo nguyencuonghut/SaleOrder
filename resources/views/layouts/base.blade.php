@@ -53,7 +53,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{route('home')}}" wire:navigate class="brand-link">
+    <a href="{{route('home')}}"  class="brand-link">
       <img src="{{asset('logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Honghafeed</span>
     </a>
@@ -75,13 +75,13 @@
              </a>
              <ul class="nav nav-treeview">
                <li class="nav-item">
-                 <a href="{{ route('home') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}" wire:navigate>
+                 <a href="{{ route('home') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}" >
                    <i class="far fa-circle nav-icon"></i>
                    <p>Tạo đơn hàng</p>
                  </a>
                </li>
                <li class="nav-item">
-                 <a href="{{route('cart.detail')}}" class="nav-link {{ Request::is('cart') ? 'active' : '' }}" wire:navigate>
+                 <a href="{{route('cart.detail')}}" class="nav-link {{ Request::is('cart') ? 'active' : '' }}" >
                    <i class="far fa-circle nav-icon"></i>
                    <p>Giỏ hàng</p>
                  </a>
@@ -90,7 +90,7 @@
            </li>
 
            <li class="nav-item">
-            <a href="{{ route('orders.index') }}" wire:navigate class="nav-link {{ Request::is('orders*') ? 'active' : '' }}">
+            <a href="{{ route('orders.index') }}"  class="nav-link {{ Request::is('orders*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-truck"></i>
               <p>
                Đơn hàng
@@ -101,7 +101,7 @@
            @if(Auth::check() && Auth::user()->role->name == 'Admin')
            <li class="nav-header">HỆ THỐNG</li>
            <li class="nav-item">
-             <a href="{{ route('products.index') }}" wire:navigate class="nav-link {{ Request::is('products*') ? 'active' : '' }}">
+             <a href="{{ route('products.index') }}"  class="nav-link {{ Request::is('products*') ? 'active' : '' }}">
                <i class="nav-icon fas fa-th-list"></i>
                <p>
                 Sản phẩm
@@ -109,7 +109,7 @@
              </a>
            </li>
            <li class="nav-item">
-            <a href="{{ route('schedules.index') }}" wire:navigate class="nav-link {{ Request::is('schedules*') ? 'active' : '' }}">
+            <a href="{{ route('schedules.index') }}"  class="nav-link {{ Request::is('schedules*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-calendar"></i>
               <p>
                 Kỳ đặt hàng
@@ -117,7 +117,7 @@
             </a>
           </li>
            <li class="nav-item">
-             <a href="{{ route('packages.index') }}" wire:navigate class="nav-link {{ Request::is('packages*') ? 'active' : '' }}">
+             <a href="{{ route('packages.index') }}"  class="nav-link {{ Request::is('packages*') ? 'active' : '' }}">
                <i class="nav-icon fas fa-box-open"></i>
                <p>
                  Đóng gói
@@ -125,7 +125,7 @@
              </a>
            </li>
            <li class="nav-item">
-             <a href="{{ route('categories.index') }}" wire:navigate class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
+             <a href="{{ route('categories.index') }}"  class="nav-link {{ Request::is('categories*') ? 'active' : '' }}">
                <i class="nav-icon fas fa-tags"></i>
                <p>
                  Phân loại
@@ -133,7 +133,7 @@
              </a>
            </li>
            <li class="nav-item">
-             <a href="{{ route('groups.index') }}" wire:navigate class="nav-link {{ Request::is('groups*') ? 'active' : '' }}">
+             <a href="{{ route('groups.index') }}"  class="nav-link {{ Request::is('groups*') ? 'active' : '' }}">
                <i class="nav-icon fas fa-stream"></i>
                <p>
                  Nhóm SP
@@ -141,7 +141,7 @@
              </a>
            </li>
            <li class="nav-item">
-             <a href="{{ route('roles.index') }}" wire:navigate class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
+             <a href="{{ route('roles.index') }}"  class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
                <i class="nav-icon fas fa-book"></i>
                <p>
                  Vai trò
@@ -149,7 +149,7 @@
              </a>
            </li>
            <li class="nav-item">
-             <a href="{{ route('users.index') }}" wire:navigate class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+             <a href="{{ route('users.index') }}"  class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
                <i class="nav-icon fas fa-users"></i>
                <p>
                  Người dùng

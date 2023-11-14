@@ -15,6 +15,6 @@
                 <span class="float-right text-muted text-sm">{{ number_format($item->quantity, 0, '.', ',') }} KG</span>
             </a>
         @endforeach
-        <a href="{{route('cart.detail')}}" wire:navigate class="dropdown-item dropdown-footer">Xem giỏ hàng</a>
+        <a href="{{route('cart.detail')}}"  class="dropdown-item dropdown-footer">Xem giỏ hàng</a>
     </div>
 </li>

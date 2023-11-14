@@ -16,8 +16,8 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/" wire:navigate>Trang chủ</a></li>
-              <li class="breadcrumb-item"><a href="{{route('orders.index')}}" wire:navigate>Tất cả đơn đặt hàng</a></li>
+              <li class="breadcrumb-item"><a href="/" >Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="{{route('orders.index')}}" >Tất cả đơn đặt hàng</a></li>
               <li class="breadcrumb-item active">Yêu cầu duyệt</li>
             </ol>
           </div>
