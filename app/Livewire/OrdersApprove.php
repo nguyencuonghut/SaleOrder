@@ -3,7 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\OrderApproved;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -35,6 +38,8 @@ class OrdersApprove extends Component
                     'level2_manager_approved_result.required' => 'Bạn phải chọn kết quả 2.',
                 ];
                 $order->level2_manager_approved_result = $this->level2_manager_approved_result;
+                $toMail = $order->creator->email;
+                $level = 'level_2';
                 if('Đồng ý' == $this->level2_manager_approved_result){
                     $order->status = 'TV/GS đã duyệt';
                 }
@@ -47,6 +52,8 @@ class OrdersApprove extends Component
                     'level1_manager_approved_result.required' => 'Bạn phải chọn kết quả 1.',
                 ];
                 $order->level1_manager_approved_result = $this->level1_manager_approved_result;
+                $toMail = $order->level2_manager->email;
+                $level = 'level_1';
                 if('Đồng ý' == $this->level1_manager_approved_result){
                     $order->status = 'Giám đốc đã duyệt';
                 }
@@ -55,6 +62,9 @@ class OrdersApprove extends Component
         $this->validate($rules, $messages);
 
         $order->save();
+
+        //Notify email to users
+        Notification::route('mail' , $toMail)->notify(new OrderApproved($order->id, $level));
 
         $this->reset(['orderId']);
         Session::flash('success_message', 'Duyệt thành công!');
