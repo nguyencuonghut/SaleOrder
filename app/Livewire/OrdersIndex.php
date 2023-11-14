@@ -52,13 +52,15 @@ class OrdersIndex extends Component
         // Destroy order
         $order = Order::findOrFail($this->deletedOrderIndex);
         //Check condition before destroying
-        if(Auth::user()->id != $order->creator_id){
+        if(Auth::user()->id != $order->creator_id
+            && 'Admin' != Auth::user()->role->name){
             Session::flash('error_message', 'Bạn không có quyền xóa đơn đặt hàng này!');
             return $this->redirect('/orders');
         }
 
         if(('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
-            || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)){
+            || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)
+            || ('Admin' == Auth::user()->role->name && 'Giám đốc đã duyệt' == $order->status)){
             $order->destroy($this->deletedOrderIndex);
 
             $this->reset('deletedOrderIndex');
