@@ -26,12 +26,17 @@ class OrdersEdit extends Component
             Session::flash('error_message', 'Bạn không có quyền sửa đơn đặt hàng này!');
             return $this->redirect('/orders');
         }
-
-        $this->editedOrderId = $order->id;
-        $this->schedule_id = $order->schedule_id;
-        $this->level1_manager_id = $order->level1_manager_id;
-        $this->level2_manager_id = $order->level2_manager_id;
-        $this->delivery_date = $order->delivery_date;
+        if(('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+        || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)){
+            $this->editedOrderId = $order->id;
+            $this->schedule_id = $order->schedule_id;
+            $this->level1_manager_id = $order->level1_manager_id;
+            $this->level2_manager_id = $order->level2_manager_id;
+            $this->delivery_date = $order->delivery_date;
+        }else{
+            Session::flash('error_message', 'Đơn đã duyệt. Bạn không thể sửa đơn đặt hàng này!');
+            return $this->redirect('/orders');
+        }
     }
 
     public function saveOrder()

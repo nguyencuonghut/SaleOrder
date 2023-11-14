@@ -57,10 +57,16 @@ class OrdersIndex extends Component
             return $this->redirect('/orders');
         }
 
-        $order->destroy($this->deletedOrderIndex);
+        if(('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+            || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)){
+            $order->destroy($this->deletedOrderIndex);
 
-        $this->reset('deletedOrderIndex');
-        Session::flash('success_message', 'Xóa thành công!');
+            $this->reset('deletedOrderIndex');
+            Session::flash('success_message', 'Xóa thành công!');
+        }else{
+            Session::flash('error_message', 'Đơn đã duyệt. Bạn không thể xóa đơn đặt hàng này!');
+            return $this->redirect('/orders');
+        }
     }
 
     public function render()
