@@ -43,7 +43,7 @@ class Order extends Model
 
     public function getProductCntAttribute()
     {
-        $ordersproducts = OrdersProducts::where('order_id', $this->id)->get();
+        $ordersproducts = OrdersProducts::where('order_id', $this->id)->where('is_deleted', false)->get();
         return $ordersproducts->count();
     }
 

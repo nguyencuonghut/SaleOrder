@@ -78,7 +78,7 @@
                                     @endif
                                     @if(('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status)
                                         || ('TV/GS' == Auth::user()->role->name && 'Chưa duyệt' == $order->status))
-                                        <a href="#" class="dropdown-item">
+                                        <a href="{{route('orders.approve', $order->id)}}" class="dropdown-item">
                                             Duyệt đơn hàng
                                         </a>
                                     @endif

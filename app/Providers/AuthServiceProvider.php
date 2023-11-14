@@ -12,6 +12,7 @@ class AuthServiceProvider extends ServiceProvider
 {
     public static $permissions = [
         'create-order' => ['Nhân viên', 'TV/GS', 'Giám đốc'],
+        'approve-order' => ['TV/GS', 'Giám đốc'],
     ];
 
     /**

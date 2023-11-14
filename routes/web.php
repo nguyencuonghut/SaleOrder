@@ -7,6 +7,7 @@ use App\Livewire\CategoriesIndex;
 use App\Livewire\GroupsCreate;
 use App\Livewire\GroupsIndex;
 use App\Livewire\HomeComponent;
+use App\Livewire\OrdersApprove;
 use App\Livewire\OrdersCreate;
 use App\Livewire\OrdersEdit;
 use App\Livewire\OrdersIndex;
@@ -73,4 +74,5 @@ Route::group(['middleware'=>'auth:web'], function() {
     Route::get('orders/{id}', OrdersShow::class)->name('orders.show');
     Route::get('orders/edit/{id}', OrdersEdit::class)->name('orders.edit');
     Route::get('orders/request-approve/{id}', OrdersRequestAppove::class)->name('orders.request');
+    Route::get('orders/approve/{id}', OrdersApprove::class)->name('orders.approve');
 });
