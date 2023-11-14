@@ -172,7 +172,12 @@
                                 <th>STT</th>
                                 <th>Mã SP</th>
                                 <th>Trọng lượng</th>
+                                @if(
+                                    ('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                    || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)
+                                )
                                 <th>Thao tác</th>
+                                @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -195,6 +200,10 @@
                                                 {{number_format($item->quantity , 0, '.', ',')}} KG
                                             @endif
                                         </td>
+                                        @if(
+                                            ('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                            || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)
+                                        )
                                         <td>
                                             @if ($editedOrderProductId === $item->id)
                                                 <button type="button" wire:click.prevent="update" class="btn btn-outline-success btn-sm"><i class="fa fa-save"></i></button>
@@ -206,7 +215,8 @@
                                                 <button type="button" wire:click.prevent="edit({{$item->id}})" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
                                                 <button type="button" wire:click.prevent="confirmDestroy({{$item->id}})" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
                                             @endif
-                                            </td>
+                                        </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                     <tr style="font-weight: bold;">
