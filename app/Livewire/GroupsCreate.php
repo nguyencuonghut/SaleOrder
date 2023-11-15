@@ -36,7 +36,7 @@ class GroupsCreate extends Component
 
         $this->reset(['name', 'description']);
         Session::flash('success_message', 'Tạo mới thành công!');
-        return $this->redirect('/groups', navigate: true);
+        return $this->redirect('/groups');
 
     }
 

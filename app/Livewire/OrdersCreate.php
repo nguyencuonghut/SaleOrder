@@ -21,7 +21,7 @@ class OrdersCreate extends Component
     {
         if(!Auth::user()->can('create-order')){
             Session::flash('error_message', 'Bạn không có quyền tạo đơn hàng!');
-            return $this->redirect('/cart', navigate: true);
+            return $this->redirect('/cart');
         }
         //Validate
         $rules = [
@@ -75,7 +75,7 @@ class OrdersCreate extends Component
 
         $this->reset(['schedule_id', 'delivery_date']);
         Session::flash('success_message', 'Tạo mới thành công!');
-        return $this->redirect('/orders', navigate: true);
+        return $this->redirect('/orders');
     }
 
     public function render()

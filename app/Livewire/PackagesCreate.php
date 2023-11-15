@@ -33,7 +33,7 @@ class PackagesCreate extends Component
 
         $this->reset('name');
         Session::flash('success_message', 'Tạo mới thành công!');
-        return $this->redirect('/packages', navigate: true);
+        return $this->redirect('/packages');
 
     }
 

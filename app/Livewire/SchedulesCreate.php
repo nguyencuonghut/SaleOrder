@@ -57,7 +57,7 @@ class SchedulesCreate extends Component
 
         $this->reset(['title', 'period', 'start_time', 'end_time']);
         Session::flash('success_message', 'Tạo mới thành công!');
-        return $this->redirect('/schedules', navigate: true);
+        return $this->redirect('/schedules');
 
     }
 

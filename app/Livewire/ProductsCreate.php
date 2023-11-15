@@ -53,7 +53,7 @@ class ProductsCreate extends Component
 
         $this->reset(['code', 'name', 'detail', 'description', 'package_id', 'group_id', 'category_id']);
         Session::flash('success_message', 'Tạo mới thành công!');
-        return $this->redirect('/products', navigate: true);
+        return $this->redirect('/products');
 
     }
 

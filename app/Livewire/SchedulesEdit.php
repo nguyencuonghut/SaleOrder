@@ -51,7 +51,7 @@ class SchedulesEdit extends Component
 
         $this->reset(['scheduleId', 'title', 'period', 'start_time', 'end_time']);
         Session::flash('success_message', 'Sửa thành công!');
-        return $this->redirect('/schedules', navigate: true);
+        return $this->redirect('/schedules');
     }
 
     public function render()

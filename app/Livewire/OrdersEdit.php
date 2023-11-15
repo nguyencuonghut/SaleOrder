@@ -78,7 +78,7 @@ class OrdersEdit extends Component
 
         $this->reset(['schedule_id', 'level1_manager_id', 'level2_manager_id', 'delivery_date']);
         Session::flash('success_message', 'Sửa thành công!');
-        return $this->redirect('/orders', navigate: true);
+        return $this->redirect('/orders');
     }
 
     public function render()
