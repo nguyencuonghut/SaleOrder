@@ -98,6 +98,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ route('dashboard') }}"  class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>
+               Dashboard
+              </p>
+            </a>
+          </li>
+
            @if(Auth::check() && Auth::user()->role->name == 'Admin')
            <li class="nav-header">HỆ THỐNG</li>
            <li class="nav-item">

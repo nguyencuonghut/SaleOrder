@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Livewire\CartDetail;
 use App\Livewire\CategoriesCreate;
 use App\Livewire\CategoriesIndex;
+use App\Livewire\DashboardComponent;
 use App\Livewire\GroupsCreate;
 use App\Livewire\GroupsIndex;
 use App\Livewire\HomeComponent;
@@ -45,6 +46,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //Employee route
 Route::group(['middleware'=>'auth:web'], function() {
     Route::get('/', HomeComponent::class)->name('home');
+
+    Route::get('/dashboard',  DashboardComponent::class)->name('dashboard');
 
     Route::get('roles', RolesIndex::class)->name('roles.index');
     Route::get('roles/create', RolesCreate::class)->name('roles.create');
