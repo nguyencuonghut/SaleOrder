@@ -93,6 +93,13 @@
                           <i class="fa fa-sort" style="color:#cccccc"></i>
                         @endif
                       </th>
+                      <th wire:click.prevent="sortBy('status')" ><a role="button" href="#" style="color:#212529">Trạng thái</a>
+                        @if($sortField == 'status')
+                          <i class="fa {{ $sortAsc == true ? 'fa-sort-up' : 'fa-sort-down' }}" style=" {{ $sortField == 'status' ? '' : 'color:#cccccc'}} "></i>
+                        @else
+                          <i class="fa fa-sort" style="color:#cccccc"></i>
+                        @endif
+                      </th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
@@ -149,6 +156,17 @@
                                     @error('detail') <span style="color:red;">{{ $message }}</span>@enderror
                                 @else
                                     {{$product->detail}}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($editProductIndex === $product->id)
+                                    <select style="width:100%;" class="form-control" wire:model="editProductStatus">
+                                        <option value="Kích hoạt">Kích hoạt</option>
+                                        <option value="Vô hiệu">Vô hiệu</option>
+                                    </select>
+                                @else
+                                    <span class="badge {{'Vô hiệu' == $product->status ? 'badge-danger' : 'badge-success'}}">{{$product->status}}</span>
+
                                 @endif
                             </td>
                             <td>

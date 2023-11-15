@@ -98,12 +98,14 @@ class HomeComponent extends Component
         if(null == $this->group_id
             || "-- Tất cả SP --" == $this->group_id){
             $customer_products = Product::where('category_id', 3)
+                                ->where('status', 'Kích hoạt')
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                                 ->paginate(10);
         }else{
             $customer_products = Product::where('category_id', 3)
                                 ->where('group_id', $this->group_id)
+                                ->where('status', 'Kích hoạt')
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                                 ->paginate(10);
@@ -112,11 +114,13 @@ class HomeComponent extends Component
         if(null == $this->group_id
             || "-- Tất cả SP --" == $this->group_id){
             $farm_products = Product::where('category_id', 1)
+                                ->where('status', 'Kích hoạt')
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                                 ->paginate(10);
         }else{
             $farm_products = Product::where('category_id', 1)
+                                ->where('status', 'Kích hoạt')
                                 ->where('group_id', $this->group_id)
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
@@ -126,11 +130,13 @@ class HomeComponent extends Component
         if(null == $this->group_id
             || "-- Tất cả SP --" == $this->group_id){
             $silo_products = Product::where('category_id', 4)
+                                ->where('status', 'Kích hoạt')
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                                 ->paginate(10);
         }else{
             $silo_products = Product::where('category_id', 4)
+                                ->where('status', 'Kích hoạt')
                                 ->where('group_id', $this->group_id)
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
@@ -140,11 +146,13 @@ class HomeComponent extends Component
         if(null == $this->group_id
             || "-- Tất cả SP --" == $this->group_id){
             $special_products = Product::where('category_id', 2)
+                                ->where('status', 'Kích hoạt')
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                                 ->paginate(10);
         }else{
             $special_products = Product::where('category_id', 2)
+                                ->where('status', 'Kích hoạt')
                                 ->where('group_id', $this->group_id)
                                 ->search(trim($this->search))
                                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
@@ -153,19 +161,19 @@ class HomeComponent extends Component
         //Calculate the group based on the tab (category_id)
         switch ($this->tab) {
             case 'customer':
-                $group_ids = Product::where('category_id', 3)->pluck('group_id')->toArray();
+                $group_ids = Product::where('category_id', 3)->where('status', 'Kích hoạt')->pluck('group_id')->toArray();
                 $groups = Group::whereIn('id', $group_ids)->get();
                 break;
             case 'farm':
-                $group_ids = Product::where('category_id', 1)->pluck('group_id')->toArray();
+                $group_ids = Product::where('category_id', 1)->where('status', 'Kích hoạt')->pluck('group_id')->toArray();
                 $groups = Group::whereIn('id', $group_ids)->get();
                 break;
             case 'special':
-                $group_ids = Product::where('category_id', 2)->pluck('group_id')->toArray();
+                $group_ids = Product::where('category_id', 2)->where('status', 'Kích hoạt')->pluck('group_id')->toArray();
                 $groups = Group::whereIn('id', $group_ids)->get();
                 break;
             case 'silo':
-                $group_ids = Product::where('category_id', 4)->pluck('group_id')->toArray();
+                $group_ids = Product::where('category_id', 4)->where('status', 'Kích hoạt')->pluck('group_id')->toArray();
                 $groups = Group::whereIn('id', $group_ids)->get();
                 break;
         }

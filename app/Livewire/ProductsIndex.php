@@ -24,6 +24,7 @@ class ProductsIndex extends Component
     public $editPackageId;
     public $editGroupId;
     public $editCategoryId;
+    public $editProductStatus;
 
     public function mount()
     {
@@ -37,6 +38,7 @@ class ProductsIndex extends Component
         $this->editPackageId = null;
         $this->editGroupId = null;
         $this->editGroupId = null;
+        $this->editProductStatus = null;
     }
 
 
@@ -60,6 +62,7 @@ class ProductsIndex extends Component
         $this->editGroupId = $product->group_id;
         $this->editCategoryId = $product->category_id;
         $this->detail = $product->detail;
+        $this->editProductStatus = $product->status;
 
     }
 
@@ -80,16 +83,17 @@ class ProductsIndex extends Component
         $product->package_id = $this->editPackageId;
         $product->group_id = $this->editGroupId;
         $product->category_id = $this->editCategoryId;
+        $product->status = $this->editProductStatus;
         $product->save();
 
-        $this->reset('editProductIndex', 'code', 'detail', 'editPackageId', 'editGroupId', 'editCategoryId');
+        $this->reset('editProductIndex', 'code', 'detail', 'editPackageId', 'editGroupId', 'editCategoryId', 'editProductStatus');
         Session::flash('success_message', 'Cập nhật thành công!');
     }
 
 
     public function cancel()
     {
-        $this->reset('editProductIndex', 'code', 'detail', 'editPackageId', 'editGroupId', 'editCategoryId', 'deletedProductIndex');
+        $this->reset('editProductIndex', 'code', 'detail', 'editPackageId', 'editGroupId', 'editCategoryId', 'deletedProductIndex', 'editProductStatus');
         $this->resetErrorBag();
     }
 
@@ -113,6 +117,7 @@ class ProductsIndex extends Component
         $products = Product::query()
             ->whereLike('code', $this->search)
             ->whereLike('detail', $this->search)
+            ->whereLike('status', $this->search)
             ->orWhereHas('package', function($q)
             {
                 $q->where('name', 'like', '%'.$this->search.'%');
