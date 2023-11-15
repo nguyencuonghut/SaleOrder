@@ -65,11 +65,8 @@ class OrdersRequestAppove extends Component
 
     public function render()
     {
-        $level1_managers = User::where('role_id', 2)->get();
-        $level2_managers = User::where('role_id', 3)->get();
-
-        $show_level1_manager = false;
-        $show_level2_manager = false;
+        $level1_managers = User::where('role_id', 2)->where('status', 'Kích hoạt')->get();
+        $level2_managers = User::where('role_id', 3)->where('status', 'Kích hoạt')->get();
         $order = Order::findOrFail($this->orderId);
         switch($order->status){
             case 'Chưa duyệt':
