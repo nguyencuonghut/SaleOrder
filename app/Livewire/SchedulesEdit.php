@@ -21,8 +21,8 @@ class SchedulesEdit extends Component
         $this->scheduleId = $schedule->id;
         $this->title = $schedule->title;
         $this->period = $schedule->period;
-        $this->start_time = $schedule->start_time;
-        $this->end_time = $schedule->end_time;
+        $this->start_time = date('d/m/Y', strtotime($schedule->start_time));
+        $this->end_time = date('d/m/Y', strtotime($schedule->end_time));
     }
 
     public function saveSchedule()
