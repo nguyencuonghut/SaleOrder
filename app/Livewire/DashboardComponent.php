@@ -127,7 +127,34 @@ class DashboardComponent extends Component
         $spreadsheet->createSheet();
         $w_sheet = $spreadsheet->setActiveSheetIndex(1)->setTitle('Nhà phân phối');
         //Fill the second worksheet
-        $this->fillSecondWorkSheet($w_sheet, $products, $schedule);
+        $product_ids = Product::where('category_id', 3)->where('status', 'Kích hoạt')->pluck('id')->toArray();
+        $second_products = $products->whereIn('product_id', $product_ids);
+        $this->fillOtherWorkSheet($w_sheet, $second_products, $schedule);
+
+        //Create the 3rd workshhet
+        $spreadsheet->createSheet();
+        $w_sheet = $spreadsheet->setActiveSheetIndex(2)->setTitle('Trại gia công');
+        //Fill the 3rd worksheet
+        $product_ids = Product::where('category_id', 1)->where('status', 'Kích hoạt')->pluck('id')->toArray();
+        $second_products = $products->whereIn('product_id', $product_ids);
+        $this->fillOtherWorkSheet($w_sheet, $second_products, $schedule);
+
+        //Create the 4th workshhet
+        $spreadsheet->createSheet();
+        $w_sheet = $spreadsheet->setActiveSheetIndex(3)->setTitle('Hàng đặt riêng');
+        //Fill the 3rd worksheet
+        $product_ids = Product::where('category_id', 2)->where('status', 'Kích hoạt')->pluck('id')->toArray();
+        $second_products = $products->whereIn('product_id', $product_ids);
+        $this->fillOtherWorkSheet($w_sheet, $second_products, $schedule);
+
+        //Create the 5th workshhet
+        $spreadsheet->createSheet();
+        $w_sheet = $spreadsheet->setActiveSheetIndex(4)->setTitle('Hàng Silo');
+        //Fill the 3rd worksheet
+        $product_ids = Product::where('category_id', 4)->where('status', 'Kích hoạt')->pluck('id')->toArray();
+        $second_products = $products->whereIn('product_id', $product_ids);
+        $this->fillOtherWorkSheet($w_sheet, $second_products, $schedule);
+
 
         //Set active worksheet to 0
         $spreadsheet->setActiveSheetIndex(0);
@@ -206,6 +233,9 @@ class DashboardComponent extends Component
                     ->getStartColor()
                     ->setARGB('FFA500');
 
+        $w_sheet->getStyle('B5:D5')
+                ->getAlignment()
+                ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         //Fill the data
         $i = 6;
         foreach( $products as $product ) {
@@ -257,7 +287,7 @@ class DashboardComponent extends Component
     }
 
 
-    private function fillSecondWorkSheet($w_sheet, $products, $schedule)
+    private function fillOtherWorkSheet($w_sheet, $products, $schedule)
     {
         //Set column width
         $w_sheet->getColumnDimension('A')->setWidth(3);
@@ -301,12 +331,13 @@ class DashboardComponent extends Component
                     ->getStartColor()
                     ->setARGB('FFA500');
 
+        $w_sheet->getStyle('B2:D2')
+                ->getAlignment()
+                ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         //Fill the data
         $i = 3;
         //Get all products in category = 3 (Nhà phân phối)
-        $product_ids = Product::where('category_id', 3)->where('status', 'Kích hoạt')->pluck('id')->toArray();
-        $second_products = $products->whereIn('product_id', $product_ids);
-        foreach( $second_products as $product ) {
+        foreach( $products as $product ) {
             foreach( range( 'B', 'D' ) as $v ) {
                 switch( $v ) {
                     case 'B': {
@@ -332,7 +363,7 @@ class DashboardComponent extends Component
         }
         $w_sheet->mergeCells("B".($i).":C".($i));
         $w_sheet->setCellValue( 'B' . $i, 'Tổng' );
-        $w_sheet->setCellValue( 'D' . $i, $second_products->sum('quantity') );
+        $w_sheet->setCellValue( 'D' . $i, $products->sum('quantity') );
         $w_sheet->getStyle("B".($i))
                     ->getFont()
                     ->setBold(true);
