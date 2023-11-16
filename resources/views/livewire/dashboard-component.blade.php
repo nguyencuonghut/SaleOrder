@@ -43,44 +43,6 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Dashboard</h3>
-
-                    {{-- <div class="card-tools">
-                        <div class="form-group">
-                            <div wire:key="UNIQUE_KEY">
-                            <div>
-                                <label class="control-label" for="schedule_id">Chọn kỳ</label>
-                                <div class="controls">
-                                    <select name="schedule_id" id="schedule_id" class="form-control select2" wire.model.defer="schedule_id">
-                                        @foreach ($schedules as $schedule)
-                                            <option value="{{$schedule->id}}">{{$schedule->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('schedule_id')
-                                    <span class="text-danger"> {{ $message }}</span>
-                                @enderror
-                            </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div wire:key="UNIQUE_KEY">
-                            <div>
-                                <label class="control-label" for="level1_manager_id">Chọn GĐ</label>
-                                <div class="controls">
-                                    <select name="level1_manager_id" id="level1_manager_id" class="form-control select2" wire.model.defer="level1_manager_id">
-                                        @foreach ($schedules as $schedule)
-                                            <option value="{{$schedule->id}}">{{$schedule->title}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('level1_manager_id')
-                                    <span class="text-danger"> {{ $message }}</span>
-                                @enderror
-                            </div>
-                            </div>
-                        </div>
-                    </div> --}}
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
@@ -128,6 +90,11 @@
                         </div>
                     </div>
                     @endif
+                    <div class="col-4">
+                        <label class="control-label">Export dữ liệu</label>
+                        <br>
+                        <button type="button" class="btn btn-success" wire:click="exportExcel"><i class="fas fa-cloud-download-alt"> Tải</i></button>
+                    </div>
                 </div>
 
               </div>
