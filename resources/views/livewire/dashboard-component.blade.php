@@ -93,7 +93,7 @@
                     <div class="col-4">
                         <label class="control-label">Export dữ liệu</label>
                         <br>
-                        <button type="button" class="btn btn-success" wire:click="exportExcel"><i class="fas fa-cloud-download-alt"> Tải</i></button>
+                        <button type="button" class="btn btn-success" wire:click="exportExcel"><i class="fas fa-cloud-download-alt"></i></button>
                     </div>
                 </div>
 

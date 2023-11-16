@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\OrdersProducts;
+use App\Models\Product;
 use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -106,7 +107,6 @@ class DashboardComponent extends Component
         $schedule = Schedule::findOrFail($schedule_id);
         //Export to Excel
         $spreadsheet = new Spreadsheet();
-        $spreadsheet->getActiveSheet()->setTitle("Tổng hợp");
 
         //Set font
         $styleArray = array(
@@ -117,136 +117,21 @@ class DashboardComponent extends Component
         $spreadsheet->getDefaultStyle()
                     ->applyFromArray($styleArray);
 
-        //Set column width
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(3);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(30);
+        //Create the first worksheet
+        $w_sheet = $spreadsheet->getActiveSheet();
+        $w_sheet->setTitle("Tổng hợp");
+        //Fill the first worksheet
+        $this->fillFirstWorkSheet($w_sheet, $products, $schedule);
 
-        //Fill the title
-        $activeWorksheet = $spreadsheet->getActiveSheet();
-        $activeWorksheet->setCellValue('B2', 'KẾ HOẠCH ĐẶT HÀNG SẢN XUẤT');
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("B2")
-                    ->getFont()
-                    ->setSize(13)
-                    ->setBold(true);
+        //Create the second workshhet
+        $spreadsheet->createSheet();
+        $w_sheet = $spreadsheet->setActiveSheetIndex(1)->setTitle('Nhà phân phối');
+        //Fill the second worksheet
+        $this->fillSecondWorkSheet($w_sheet, $products, $schedule);
 
-        $spreadsheet->getActiveSheet()->mergeCells("B2:D2");
-        $spreadsheet->getActiveSheet()->mergeCells("B3:D3");
-        $spreadsheet->getActiveSheet()
-                    ->getStyle('B2')
-                    ->getAlignment()
-                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        $spreadsheet->getActiveSheet()
-                    ->getStyle('B3')
-                    ->getAlignment()
-                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        $activeWorksheet->setCellValue('B3', $schedule->title);
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("B3")
-                    ->getFont()
-                    ->setSize(13)
-                    ->setBold(true);
+        //Set active worksheet to 0
+        $spreadsheet->setActiveSheetIndex(0);
 
-        //Fill the column names
-        $activeWorksheet->setCellValue('B5', 'STT');
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("B5")
-                    ->getFont()
-                    ->setBold(true);
-
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("B5")
-                    ->getBorders()
-                    ->getOutline()
-                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $activeWorksheet->setCellValue('C5', 'MÃ');
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("C5")
-                    ->getFont()
-                    ->setBold(true);
-
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("C5")
-                    ->getBorders()
-                    ->getOutline()
-                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $activeWorksheet->setCellValue('D5', 'TRỌNG LƯỢNG (KG)');
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("D5")
-                    ->getFont()
-                    ->setBold(true);
-
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("D5")
-                    ->getBorders()
-                    ->getOutline()
-                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("D")
-                    ->getNumberFormat()
-                    ->setFormatCode('#,##0;[Red]-#,##0');
-        $spreadsheet->getActiveSheet()
-                    ->getStyle('B5:D5')
-                    ->getFill()
-                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    ->getStartColor()
-                    ->setARGB('FFA500');
-
-        //Fill the data
-        $i = 6;
-        foreach( $products as $row ) {
-            foreach( range( 'B', 'D' ) as $v ) {
-                switch( $v ) {
-                    case 'B': {
-                        $value = $i - 5;
-                        break;
-                    }
-                    case 'C': {
-                        $value = $row->code . ' ' . $row->detail;
-                        break;
-                    }
-                    case 'D': {
-                        $value = $row->quantity;
-                        break;
-                    }
-                }
-                $spreadsheet->getActiveSheet()->setCellValue( $v . $i, $value );
-                $spreadsheet->getActiveSheet()
-                            ->getStyle($v . $i)
-                            ->getBorders()
-                            ->getOutline()
-                            ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            }
-            $i++;
-        }
-        $spreadsheet->getActiveSheet()->mergeCells("B".($i).":C".($i));
-        $spreadsheet->getActiveSheet()->setCellValue( 'B' . $i, 'Tổng' );
-        $spreadsheet->getActiveSheet()->setCellValue( 'D' . $i, $products->sum('quantity') );
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("B".($i))
-                    ->getFont()
-                    ->setBold(true);
-
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("B".($i))
-                    ->getAlignment()
-                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-        $spreadsheet->getActiveSheet()
-                    ->getStyle("D".($i))
-                    ->getFont()
-                    ->setBold(true);
-
-        $spreadsheet->getActiveSheet()
-                    ->getStyle('B' . $i)
-                    ->getBorders()
-                    ->getOutline()
-                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-        $spreadsheet->getActiveSheet()
-                    ->getStyle('D' . $i)
-                    ->getBorders()
-                    ->getOutline()
-                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         //Save to file
         $writer = new Xlsx($spreadsheet);
         $file_name = 'Order-' . time() . '.xlsx';
@@ -254,6 +139,219 @@ class DashboardComponent extends Component
 
         Session::flash('success_message', 'Tải file thành công!');
         return response()->download($file_name)->deleteFileAfterSend(true);
+    }
+
+    private function fillFirstWorkSheet($w_sheet, $products, $schedule)
+    {
+        //Set column width
+        $w_sheet->getColumnDimension('A')->setWidth(3);
+        $w_sheet->getColumnDimension('C')->setWidth(30);
+        $w_sheet->getColumnDimension('D')->setWidth(30);
+
+        //Fill the title
+        $w_sheet->setCellValue('B2', 'KẾ HOẠCH ĐẶT HÀNG SẢN XUẤT');
+        $w_sheet->getStyle("B2")
+                    ->getFont()
+                    ->setSize(13)
+                    ->setBold(true);
+
+        $w_sheet->mergeCells("B2:D2");
+        $w_sheet->mergeCells("B3:D3");
+        $w_sheet->getStyle('B2')
+                    ->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $w_sheet->getStyle('B3')
+                    ->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $w_sheet->setCellValue('B3', $schedule->title);
+        $w_sheet->getStyle("B3")
+                    ->getFont()
+                    ->setSize(13)
+                    ->setBold(true);
+
+        //Fill the column names
+        $w_sheet->setCellValue('B5', 'STT');
+        $w_sheet->getStyle("B5")
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("B5")
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->setCellValue('C5', 'MÃ');
+        $w_sheet->getStyle("C5")
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("C5")
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->setCellValue('D5', 'TRỌNG LƯỢNG (KG)');
+        $w_sheet->getStyle("D5")
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("D5")
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->getStyle("D")
+                    ->getNumberFormat()
+                    ->setFormatCode('#,##0;[Red]-#,##0');
+        $w_sheet->getStyle('B5:D5')
+                    ->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()
+                    ->setARGB('FFA500');
+
+        //Fill the data
+        $i = 6;
+        foreach( $products as $product ) {
+            foreach( range( 'B', 'D' ) as $v ) {
+                switch( $v ) {
+                    case 'B': {
+                        $value = $i - 5;
+                        break;
+                    }
+                    case 'C': {
+                        $value = $product->code . ' ' . $product->detail;
+                        break;
+                    }
+                    case 'D': {
+                        $value = $product->quantity;
+                        break;
+                    }
+                }
+                $w_sheet->setCellValue( $v . $i, $value );
+                $w_sheet->getStyle($v . $i)
+                            ->getBorders()
+                            ->getOutline()
+                            ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            }
+            $i++;
+        }
+        $w_sheet->mergeCells("B".($i).":C".($i));
+        $w_sheet->setCellValue( 'B' . $i, 'Tổng' );
+        $w_sheet->setCellValue( 'D' . $i, $products->sum('quantity') );
+        $w_sheet->getStyle("B".($i))
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("B".($i))
+                    ->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $w_sheet->getStyle("D".($i))
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle('B' . $i)
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->getStyle('D' . $i)
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+    }
+
+
+    private function fillSecondWorkSheet($w_sheet, $products, $schedule)
+    {
+        //Set column width
+        $w_sheet->getColumnDimension('A')->setWidth(3);
+        $w_sheet->getColumnDimension('C')->setWidth(30);
+        $w_sheet->getColumnDimension('D')->setWidth(30);
+
+        //Fill the column names
+        $w_sheet->setCellValue('B2', 'STT');
+        $w_sheet->getStyle("B2")
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("B2")
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->setCellValue('C2', 'MÃ');
+        $w_sheet->getStyle("C2")
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("C2")
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->setCellValue('D2', 'TRỌNG LƯỢNG (KG)');
+        $w_sheet->getStyle("D2")
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("D2")
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->getStyle("D")
+                    ->getNumberFormat()
+                    ->setFormatCode('#,##0;[Red]-#,##0');
+        $w_sheet->getStyle('B2:D2')
+                    ->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()
+                    ->setARGB('FFA500');
+
+        //Fill the data
+        $i = 3;
+        //Get all products in category = 3 (Nhà phân phối)
+        $product_ids = Product::where('category_id', 3)->where('status', 'Kích hoạt')->pluck('id')->toArray();
+        $second_products = $products->whereIn('product_id', $product_ids);
+        foreach( $second_products as $product ) {
+            foreach( range( 'B', 'D' ) as $v ) {
+                switch( $v ) {
+                    case 'B': {
+                        $value = $i - 2;
+                        break;
+                    }
+                    case 'C': {
+                        $value = $product->code . ' ' . $product->detail;
+                        break;
+                    }
+                    case 'D': {
+                        $value = $product->quantity;
+                        break;
+                    }
+                }
+                $w_sheet->setCellValue( $v . $i, $value );
+                $w_sheet->getStyle($v . $i)
+                            ->getBorders()
+                            ->getOutline()
+                            ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            }
+            $i++;
+        }
+        $w_sheet->mergeCells("B".($i).":C".($i));
+        $w_sheet->setCellValue( 'B' . $i, 'Tổng' );
+        $w_sheet->setCellValue( 'D' . $i, $second_products->sum('quantity') );
+        $w_sheet->getStyle("B".($i))
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle("B".($i))
+                    ->getAlignment()
+                    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $w_sheet->getStyle("D".($i))
+                    ->getFont()
+                    ->setBold(true);
+
+        $w_sheet->getStyle('B' . $i)
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $w_sheet->getStyle('D' . $i)
+                    ->getBorders()
+                    ->getOutline()
+                    ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
     }
 
     public function render()
