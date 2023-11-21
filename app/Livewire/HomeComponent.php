@@ -23,8 +23,8 @@ class HomeComponent extends Component
 
     public function mount()
     {
-        $this->sortField = 'code';
-        $this->sortAsc = false;
+        $this->sortField = 'id';
+        $this->sortAsc = true;
         $this->search = '';
         $this->group_id = null;
         $this->tab = 'customer';
