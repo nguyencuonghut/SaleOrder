@@ -16,6 +16,7 @@ use App\Livewire\OrdersRequestAppove;
 use App\Livewire\OrdersShow;
 use App\Livewire\PackagesCreate;
 use App\Livewire\PackagesIndex;
+use App\Livewire\PasswordChange;
 use App\Livewire\ProductsCreate;
 use App\Livewire\ProductsIndex;
 use App\Livewire\ProfileComponent;
@@ -49,6 +50,8 @@ Route::group(['middleware'=>'auth:web'], function() {
     Route::get('/', HomeComponent::class)->name('home');
 
     Route::get('/profile', ProfileComponent::class)->name('profile');
+
+    Route::get('/profile/change_password', PasswordChange::class)->name('profile.password.change');
 
     Route::get('/dashboard',  DashboardComponent::class)->name('dashboard');
 

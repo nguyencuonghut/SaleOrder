@@ -107,6 +107,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ route('profile') }}"  class="nav-link {{ Request::is('profile') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-id-card"></i>
+              <p>
+               Hồ sơ
+              </p>
+            </a>
+          </li>
+
            @if(Auth::check() && Auth::user()->role->name == 'Admin')
            <li class="nav-header">HỆ THỐNG</li>
            <li class="nav-item">

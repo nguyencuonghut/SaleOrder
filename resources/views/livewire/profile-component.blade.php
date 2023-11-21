@@ -27,6 +27,18 @@
         <div class="container-fluid">
             <div class="row">
             <div class="col-md-12">
+                <!-- Display session message -->
+                @if(Session::has('success_message'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success_message') }}
+                    </div>
+                @endif
+                @if(Session::has('error_message'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('error_message') }}
+                    </div>
+                @endif
+
                 <!-- Profile Image -->
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
@@ -60,7 +72,7 @@
                             @endif
                         </ul>
 
-                        <a href="#" class="btn btn-warning btn-block"><b>Đổi mật khẩu</b></a>
+                        <a href="{{route('profile.password.change')}}" class="btn btn-warning btn-block"><b>Đổi mật khẩu</b></a>
                     </div>
                     <!-- /.card-body -->
                 </div>
