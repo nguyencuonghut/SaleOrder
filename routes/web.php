@@ -18,6 +18,7 @@ use App\Livewire\PackagesCreate;
 use App\Livewire\PackagesIndex;
 use App\Livewire\ProductsCreate;
 use App\Livewire\ProductsIndex;
+use App\Livewire\ProfileComponent;
 use App\Livewire\RolesIndex;
 use App\Livewire\RolesCreate;
 use App\Livewire\SchedulesCreate;
@@ -46,6 +47,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //Employee route
 Route::group(['middleware'=>'auth:web'], function() {
     Route::get('/', HomeComponent::class)->name('home');
+
+    Route::get('/profile', ProfileComponent::class)->name('profile');
 
     Route::get('/dashboard',  DashboardComponent::class)->name('dashboard');
 

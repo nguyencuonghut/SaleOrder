@@ -39,7 +39,7 @@
       <li class="nav-item dropdown">
         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{Auth::user()->name}}</a>
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-          <li><a href="#" class="dropdown-item"><i class="fas fa-user-alt"></i> Hồ sơ</a></li>
+          <li><a href="{{route('profile')}}" class="dropdown-item"><i class="fas fa-user-alt"></i> Hồ sơ</a></li>
           <li><a href="{{route('logout')}}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
         </ul>
       </li>
