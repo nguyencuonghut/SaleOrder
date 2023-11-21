@@ -65,6 +65,10 @@
         @enderror
       </form>
 
+      <p class="mb-1">
+        <a href="{{route('forgot.password.get')}}">Tôi quên mật khẩu</a>
+      </p>
+
     <!-- Display session message -->
     @if(Session::has('success_message'))
         <div class="alert alert-success">

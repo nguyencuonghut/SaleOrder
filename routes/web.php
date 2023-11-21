@@ -43,6 +43,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('handleLogin');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/forgot-password', [LoginController::class, 'showForgotPasswordForm'])->name('forgot.password.get');
+Route::post('/forgot-password', [LoginController::class, 'submitForgotPasswordForm'])->name('forgot.password.post');
+Route::get('/reset-password/{token}', [LoginController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('/reset-password', [LoginController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 //Employee route
