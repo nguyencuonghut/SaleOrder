@@ -174,7 +174,8 @@
                                 <th>Trọng lượng</th>
                                 @if(
                                     ('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
-                                    || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)
+                                    || ('TV/GS' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                    || ('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status)
                                 )
                                 <th>Thao tác</th>
                                 @endif
@@ -201,8 +202,9 @@
                                             @endif
                                         </td>
                                         @if(
-                                            ('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
-                                            || ('TV/GS' == Auth::user()->role->name && 'Giám đốc đã duyệt' != $order->status)
+                                        ('Nhân viên' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                        || ('TV/GS' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                        || ('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status)
                                         )
                                         <td>
                                             @if ($editedOrderProductId === $item->id)
