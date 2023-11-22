@@ -1,5 +1,5 @@
 @section('title')
-{{ 'Đổi mật khẩu' }}
+    Đổi mật khẩu
 @endsection
 
 <div class="content-wrapper">

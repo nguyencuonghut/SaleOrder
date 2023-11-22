@@ -1,5 +1,5 @@
 @section('title')
-    'Hồ sơ của tôi'
+    Hồ sơ của tôi
 @endsection
 
 <!-- Content Wrapper. Contains page content -->
