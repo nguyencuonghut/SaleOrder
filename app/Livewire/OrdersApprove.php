@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Order;
 use App\Models\User;
 use App\Notifications\OrderApproved;
+use App\Notifications\OrderFinalApproved;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
@@ -66,6 +67,15 @@ class OrdersApprove extends Component
         //Notify email to users
         Notification::route('mail' , $toMail)->notify(new OrderApproved($order->id, $level));
 
+        //Notify email to Admin/Sản Xuất when order is finally approved by GĐV
+        if('Giám đốc đã duyệt' == $order->status){
+            //1- Admin
+            //5- Sản Xuất
+            $users = User::where('status', 'Kích hoạt')->whereIn('role_id', [1, 5])->get();
+            foreach($users as $user){
+                Notification::route('mail' , $user->email)->notify(new OrderFinalApproved($order->id));
+            }
+        }
         $this->reset(['orderId']);
         Session::flash('success_message', 'Duyệt thành công!');
         return $this->redirect('/orders');
