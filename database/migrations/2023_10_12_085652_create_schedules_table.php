@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('period', ['Kỳ 1', 'Kỳ 2', 'Kỳ 3', 'Kỳ 4']);
+            $table->enum('period', ['Kỳ 1', 'Kỳ 2', 'Kỳ 3', 'Kỳ 4', 'Kỳ tháng']);
             $table->date('start_time');
             $table->date('end_time');
             $table->timestamps();

@@ -75,6 +75,7 @@
                                             <option {{"Kỳ 2" == $period ? 'selected' : ''}} value="Kỳ 2">Kỳ 2</option>
                                             <option {{"Kỳ 3" == $period ? 'selected' : ''}} value="Kỳ 3">Kỳ 3</option>
                                             <option {{"Kỳ 4" == $period ? 'selected' : ''}} value="Kỳ 4">Kỳ 4</option>
+                                            <option {{"Kỳ tháng" == $period ? 'selected' : ''}} value="Kỳ tháng">Kỳ tháng</option>
                                         </select>
                                     </div>
                                     @error('period')

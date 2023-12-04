@@ -73,6 +73,7 @@
                                             <option value="Kỳ 2">Kỳ 2</option>
                                             <option value="Kỳ 3">Kỳ 3</option>
                                             <option value="Kỳ 4">Kỳ 4</option>
+                                            <option value="Kỳ tháng">Kỳ tháng</option>
                                         </select>
                                     </div>
                                     @error('period')
