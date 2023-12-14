@@ -37,8 +37,7 @@ class LoginController extends Controller
         $request->validate($rules,$messages);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $request->session()->regenerate();
-            if("Kích hoạt" == auth()->user()->status){
+            if (!Auth::user()->isDisabled()){
                 if (auth()->user()->type == 'Admin') {
                     Session::flash('success_message', 'Đăng nhập thành công!');
                     return redirect()->route('admin.policies');
