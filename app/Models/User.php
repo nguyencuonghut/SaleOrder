@@ -55,9 +55,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-
-    public function isDisabled()
-    {
-        return 'Vô hiệu' == $this->status ? true : false;
-    }
 }
