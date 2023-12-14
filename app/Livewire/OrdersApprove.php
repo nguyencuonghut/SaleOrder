@@ -43,6 +43,8 @@ class OrdersApprove extends Component
                 $level = 'level_2';
                 if('Đồng ý' == $this->level2_manager_approved_result){
                     $order->status = 'TV/GS đã duyệt';
+                }else{
+                    $order->status = 'Chưa duyệt';
                 }
                 break;
             case 'Giám đốc':
@@ -57,6 +59,9 @@ class OrdersApprove extends Component
                 $level = 'level_1';
                 if('Đồng ý' == $this->level1_manager_approved_result){
                     $order->status = 'Giám đốc đã duyệt';
+                }else{
+                    //Từ chối => chuyển lại trạng thái
+                    $order->status = 'TV/GS đã duyệt';
                 }
                 break;
         }

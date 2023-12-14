@@ -62,7 +62,8 @@
                     <div class="card">
                         <div class="card-header">
                         <h3 class="card-title">Thông tin chung</h3>
-                        @if('Giám đốc đã duyệt' != $order->status)
+                        @if('Giám đốc đã duyệt' != $order->status
+                            || 'Giám đốc đã duyệt' == $order->status && 'Giám đốc' == Auth::user()->role->name)
                         <div class="card-tools">
                             <ul class="dropdown">
                                 <a data-toggle="dropdown" href="#">
@@ -77,7 +78,9 @@
                                         </a>
                                     @endif
                                     @if(('Giám đốc' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status)
-                                        || ('TV/GS' == Auth::user()->role->name && 'Chưa duyệt' == $order->status))
+                                        || ('TV/GS' == Auth::user()->role->name && 'Chưa duyệt' == $order->status)
+                                        || ('Giám đốc' == Auth::user()->role->name && 'Giám đốc đã duyệt' == $order->status)
+                                        || ('TV/GS' == Auth::user()->role->name && 'TV/GS đã duyệt' == $order->status))
                                         <a href="{{route('orders.approve', $order->id)}}" class="dropdown-item">
                                             Duyệt đơn hàng
                                         </a>
